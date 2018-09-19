@@ -1,4 +1,4 @@
-import React,  { Component } from 'react'
+import React, { Component } from 'react'
 
 import { Input, Icon } from 'semantic-ui-react'
 
