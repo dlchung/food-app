@@ -7,7 +7,7 @@ import { Container, Grid, Divider, Header, Image } from 'semantic-ui-react'
 export default class Home extends Component {
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Container>
           <Grid centered>
             <Grid.Row>
@@ -42,7 +42,7 @@ export default class Home extends Component {
             </Grid.Row>
           </Grid>
         </Container>
-      </div>
+      </React.Fragment>
     )
   }
 }
