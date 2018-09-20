@@ -4,14 +4,14 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 import Home from './components/Home'
-import SearchResults from './components/SearchResults'
+import SearchResultsContainer from './components/SearchResultsContainer'
 
 class App extends Component {
   render() {
     return (
       <React.Fragment>
         <Route exact path="/" component={Home} />
-        <Route path="/search" component={SearchResults} />
+        <Route path="/search" component={SearchResultsContainer} />
       </React.Fragment>
     );
   }
