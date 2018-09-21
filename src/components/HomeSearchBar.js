@@ -1,30 +1,37 @@
 import React, { Component } from 'react'
 
-import { Form, Icon, Search } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { setLocation } from '../actions'
+
+import { Input, Icon, Search } from 'semantic-ui-react'
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
-export default class HomeSearchBar extends Component {
+class HomeSearchBar extends Component {
   state = {
     address: "",
-    results: []
   }
 
   componentDidMount() {
   }
 
+  componentDidUpdate() {
+    console.log("PROPS", this.props)
+  }
+
   handleChange = address => {
-    this.setState({ address });
+    this.setState({ address })
   }
 
   handleSelect = address => {
-    // geocodeByAddress(address)
-    //   .then(results => getLatLng(results[0]))
-    //   .then(latLng => console.log('Success', latLng))
-    //   .catch(error => console.error('Error', error))
-  }
+    geocodeByAddress(address)
+      .then(results => {
+        console.log("DATA", results[0])
+        this.props.setLocation(results[0])
 
-  handleSearchChange = (e) => {
-    this.setState({ address: e.target.value })
+      })
+      // .then(results => getLatLng(results[0]))
+      // .then(latLng => console.log('Success', latLng))
+      // .catch(error => console.error('Error', error))
   }
 
   render() {
@@ -34,28 +41,17 @@ export default class HomeSearchBar extends Component {
           value={this.state.address}
           onChange={this.handleChange}
           onSelect={this.handleSelect}
-          debounce={400}
+          debounce={500}
           highlightFirstSuggestion={true}
         >
 
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
-              <Form action="/search" onSubmit={this.handleSubmit} method="POST">
-                <Form.Input icon={<Icon name="search" circular link />} iconPosition="right" size="massive" fluid
-                  {...getInputProps({
-                    placeholder: 'Search Places ...',
-                    className: 'location-search-input',
-                  })}
-                />
-              </Form>
-
-              <Search size="massive"
+              <Input icon={<Icon name="search" circular />} iconPosition="right" size="massive" fluid
                 {...getInputProps({
-                  placeholder: 'Search Places ...',
+                  placeholder: 'Your Address ...',
                   className: 'location-search-input',
                 })}
-                value={this.state.value}
-                onSearchChange={this.handleSearchChange}
               />
 
               {loading && <div>Loading...</div>}
@@ -88,3 +84,12 @@ export default class HomeSearchBar extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  // console.log("STATE", state)
+  return (
+    { selectedLocation: state.selectedLocation }
+  )
+}
+
+export default connect(mapStateToProps, {setLocation})(HomeSearchBar)

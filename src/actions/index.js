@@ -10,6 +10,16 @@ export const getAllRestaurants = () => {
   }
 }
 
+export const setLocation = (location) => {
+  console.log("hit action")
+  return {
+    type: 'SET_LOCATION',
+    payload: {
+      location
+    }
+  }
+}
+
 const setRestaurants = (restaurants) => {
   return {
     type: 'GET_ALL_RESTAURANTS',
