@@ -23,6 +23,7 @@ class HomeSearchBar extends Component {
   }
 
   handleSelect = address => {
+    this.setState({ address })
     geocodeByAddress(address)
       .then(results => {
         console.log("DATA", results[0])
