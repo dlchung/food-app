@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 
-import { Form, Icon } from 'semantic-ui-react'
+import { Form, Icon, Search } from 'semantic-ui-react'
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 export default class HomeSearchBar extends Component {
   state = {
-    address: ""
+    address: "",
+    results: []
   }
 
   componentDidMount() {
@@ -16,10 +17,14 @@ export default class HomeSearchBar extends Component {
   }
 
   handleSelect = address => {
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => console.log('Success', latLng))
-      .catch(error => console.error('Error', error))
+    // geocodeByAddress(address)
+    //   .then(results => getLatLng(results[0]))
+    //   .then(latLng => console.log('Success', latLng))
+    //   .catch(error => console.error('Error', error))
+  }
+
+  handleSearchChange = (e) => {
+    this.setState({ address: e.target.value })
   }
 
   render() {
@@ -35,7 +40,7 @@ export default class HomeSearchBar extends Component {
 
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
-              <Form action="/search" onSubmit={this.handleSubmit}>
+              <Form action="/search" onSubmit={this.handleSubmit} method="POST">
                 <Form.Input icon={<Icon name="search" circular link />} iconPosition="right" size="massive" fluid
                   {...getInputProps({
                     placeholder: 'Search Places ...',
@@ -44,15 +49,25 @@ export default class HomeSearchBar extends Component {
                 />
               </Form>
 
+              <Search size="massive"
+                {...getInputProps({
+                  placeholder: 'Search Places ...',
+                  className: 'location-search-input',
+                })}
+                value={this.state.value}
+                onSearchChange={this.handleSearchChange}
+              />
+
               {loading && <div>Loading...</div>}
+
               {suggestions.map(suggestion => {
-                const className = suggestion.active
-                  ? 'suggestion-item--active'
-                  : 'suggestion-item';
+                const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item'
+
                 // inline style for demonstration purpose
-                const style = suggestion.active
-                  ? { backgroundColor: '#aaa', cursor: 'pointer' }
-                  : { backgroundColor: '#ccc', cursor: 'pointer' };
+                const style = suggestion.active ? { backgroundColor: '#ccc', cursor: 'pointer' } : { backgroundColor: '#ddd', cursor: 'pointer' }
+
+                // this.setState({results: suggestion.description})
+
                 return (
                   <div
                     {...getSuggestionItemProps(suggestion, {
@@ -64,8 +79,6 @@ export default class HomeSearchBar extends Component {
                   </div>
                 );
               })}
-
-
             </div>
           )}
 

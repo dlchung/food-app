@@ -13,11 +13,6 @@ import thunk from 'redux-thunk'
 
 import 'semantic-ui-css/semantic.min.css';
 
-// let GoogleMapsLoader = require('google-maps')
-// GoogleMapsLoader.KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY
-// GoogleMapsLoader.LIBRARIES = ['places']
-// GoogleMapsLoader.load()
-
 const store = createStore(reducer, applyMiddleware(thunk))
 
 ReactDOM.render(
