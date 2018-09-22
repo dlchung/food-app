@@ -10,13 +10,18 @@ export const getAllRestaurants = () => {
   }
 }
 
-export const setLocation = (location) => {
-  console.log("hit action")
-  return {
-    type: 'SET_LOCATION',
-    payload: {
-      location
-    }
+export const setLocation = (selectedLocation, latLng) => {
+  return (dispatch) => {
+    let coordinates = {}
+    latLng.then(data => {
+      coordinates = Object.assign({}, data)
+      dispatch({
+        type: 'SET_LOCATION',
+        payload: {
+          selectedLocation, latLng: coordinates
+        }
+      })
+    })
   }
 }
 

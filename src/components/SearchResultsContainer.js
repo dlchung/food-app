@@ -9,20 +9,20 @@ import { getAllRestaurants } from '../actions'
 class SearchResultsContainer extends Component {
   componentDidMount() {
     this.props.getAllRestaurants()
+    console.log(this.props)
   }
 
   componentDidUpdate() {
   }
 
   showResults = (restaurants) => {
-    console.log(restaurants)
     return restaurants.map(restaurant => {
       return <SearchResultsItem restaurant={restaurant} key={restaurant.id} />
     })
   }
 
   render() {
-    console.log("render")
+    // console.log("render")
     return (
       <React.Fragment>
         {this.props.restaurants.length > 0 ? this.showResults(this.props.restaurants) : null}
@@ -32,8 +32,11 @@ class SearchResultsContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log("STATE", state)
   return {
-    restaurants: state.restaurants
+    restaurants: state.restaurants,
+    selectedLocation: state.selectedLocation,
+    latLng: state.latLng
   }
 }
 

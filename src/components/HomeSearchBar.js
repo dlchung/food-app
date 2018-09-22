@@ -3,33 +3,50 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setLocation } from '../actions'
 
+import { Redirect } from 'react-router-dom'
+
 import { Input, Icon, Search } from 'semantic-ui-react'
 import PlacesAutocomplete, { geocodeByPlaceId, geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class HomeSearchBar extends Component {
   state = {
     address: "",
+    redirect: false
   }
 
   componentDidMount() {
   }
 
   componentDidUpdate() {
-    console.log("PROPS", this.props)
+    // console.log("PROPS", this.props)
+  }
+
+  setRedirect = () => {
+    this.setState({ redirect: true })
+  }
+
+  renderRedirect = () => {
+    if(this.state.redirect) {
+      return <Redirect to='/search' />
+    }
   }
 
   handleChange = address => {
+    // console.log("handleChange")
     this.setState({ address })
   }
 
   handleSelect = address => {
+    // console.log("handleSelect")
     this.setState({ address })
     geocodeByAddress(address)
       .then(results => {
-        console.log("DATA", results[0])
-        this.props.setLocation(results[0])
+        // console.log("DATA", results[0])
+        this.props.setLocation(results[0], getLatLng(results[0]))
 
       })
+
+    this.setRedirect()
       // .then(results => getLatLng(results[0]))
       // .then(latLng => console.log('Success', latLng))
       // .catch(error => console.error('Error', error))
@@ -38,6 +55,7 @@ class HomeSearchBar extends Component {
   render() {
     return (
       <React.Fragment>
+        {this.renderRedirect()}
         <PlacesAutocomplete
           value={this.state.address}
           onChange={this.handleChange}
@@ -88,9 +106,9 @@ class HomeSearchBar extends Component {
 
 const mapStateToProps = (state) => {
   // console.log("STATE", state)
-  return (
-    { selectedLocation: state.selectedLocation }
-  )
+  return {
+    selectedLocation: state.selectedLocation
+  }
 }
 
 export default connect(mapStateToProps, {setLocation})(HomeSearchBar)
