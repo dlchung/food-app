@@ -1,4 +1,4 @@
-import { fetchAllRestaurants } from '../adapters/restaurantsAdapter'
+import { fetchAllRestaurants, fetchNearbyRestaurants } from '../adapters/restaurantsAdapter'
 
 export const getAllRestaurants = () => {
   return (dispatch) => {
@@ -6,6 +6,15 @@ export const getAllRestaurants = () => {
       .then(resp => {
         // console.log("HELLO", resp)
         dispatch(setRestaurants(resp))
+      })
+  }
+}
+
+export const getNearbyRestaurants = (latLng) => {
+  return (dispatch) => {
+    fetchNearbyRestaurants(latLng)
+      .then(resp => {
+        dispatch(setNearbyRestaurants(resp.data))
       })
   }
 }
@@ -22,6 +31,15 @@ export const setLocation = (selectedLocation, latLng) => {
         }
       })
     })
+  }
+}
+
+const setNearbyRestaurants = (restaurants) => {
+  return {
+    type: 'GET_NEARBY_RESTAURANTS',
+    payload: {
+      restaurants
+    }
   }
 }
 

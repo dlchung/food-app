@@ -8,6 +8,13 @@ const reducer = (state = initialState, action) => {
         restaurants: action.payload.restaurants.data.data.allRestaurants
       }
 
+    case "GET_NEARBY_RESTAURANTS":
+      // console.log("hit reducer", action)
+      return {
+        ...state,
+        restaurants: action.payload.restaurants
+    }
+
     case "SET_LOCATION":
       return {
         ...state,
