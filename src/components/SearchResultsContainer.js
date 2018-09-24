@@ -8,19 +8,29 @@ import { connect } from 'react-redux'
 
 import { getAllRestaurants, getNearbyRestaurants } from '../actions'
 
+import { Loader, Dimmer, Segment } from 'semantic-ui-react'
+
 class SearchResultsContainer extends Component {
-  // state = {
-  //   redirect: false
-  // }
+  state = {
+    loading: true,
+    redirect: false
+  }
 
   componentDidMount() {
-
+    if(!this.props.latLng) {
+      this.props.getAllRestaurants()
+    }
   }
 
   componentDidUpdate() {
     // console.log(this.props.latLng, this.props.restaurants.length > 0)
     if(this.props.latLng && this.props.restaurants.length < 1) {
       this.props.getNearbyRestaurants(this.props.latLng)
+    }
+
+    if(this.props.restaurants.length > 1 && this.state.loading !== false) {
+      console.log("TESTING")
+      this.setState({ loading: false })
     }
 
     // console.log("PROPS", this.props)
@@ -46,7 +56,14 @@ class SearchResultsContainer extends Component {
     console.log("render", this.props)
     return (
       <React.Fragment>
-        {this.props.restaurants.length > 0 ? this.showResults(this.props.restaurants) : null}
+        <div>
+          <Dimmer active={this.state.loading ? true : false}>
+            <Loader content="Loading..." />
+          </Dimmer>
+
+          {this.props.restaurants.length > 0 ? this.showResults(this.props.restaurants) : null}
+        </div>
+
       </React.Fragment>
     )
   }
