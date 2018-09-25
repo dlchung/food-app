@@ -29,7 +29,7 @@ class SearchResultsContainer extends Component {
     }
 
     if(this.props.restaurants.length > 1 && this.state.loading !== false) {
-      console.log("TESTING")
+      // console.log("TESTING")
       this.setState({ loading: false })
     }
 
