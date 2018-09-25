@@ -10,14 +10,7 @@ export default class Home extends Component {
     return (
       <React.Fragment>
         <Container>
-          <NavAvatar />
-          <Grid centered>
-            <Grid.Row>
-              <Grid.Column width={10}>
-                <HomeSearchBar />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+          
           <Grid centered>
             <Grid.Row>
               <Grid.Column width={5}>
