@@ -14,3 +14,14 @@ export const fetchNearbyRestaurants = (latLng) => {
   const body = { location, radius, type }
   return axios.post(`${API_URL}/nearby`, body)
 }
+
+export const fetchRestaurantRatings = (restaurant_id = null) => {
+  const ratings = {
+    yelp: 5.3,
+    foursquare: 4.2,
+    tripadvisor: 3.5,
+    seamless: 3.9
+  }
+
+  return ratings
+}

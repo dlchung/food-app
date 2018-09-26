@@ -1,34 +1,75 @@
 import React, { Component } from 'react'
 
-import { Card } from 'semantic-ui-react'
+import { fetchRestaurantRatings } from '../adapters/restaurantsAdapter'
+
+import { Card, List, Rating, Label, Segment, Statistic } from 'semantic-ui-react'
 
 export default class SearchResultsItem extends Component {
   state = {
-    showDetails: false
+    showDetails: true,
+    restaurantRatings: {}
   }
 
   handleClick = () => {
     // console.log("handleClick", e.currentTarget.querySelector(".restaurant-details"))
     // const container = e.currentTarget.querySelector(".restaurant-details")
-    this.setState({showDetails: !this.state.showDetails})
+    this.setState({ showDetails: !this.state.showDetails })
   }
 
-  render() {
+  getRatings = () => {
+    return fetchRestaurantRatings()
+  }
+
+  showDetails = () => {
+    const address = this.props.restaurant.street
+    const address_2 = `${this.props.restaurant.city}, ${this.props.restaurant.state}, ${this.props.restaurant.zipcode}`
+
+    const ratings = this.getRatings()
+    const square = { width: 150, height: 150}
+
     const content = (
       <Card.Content>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam laoreet euismod purus, at posuere eros venenatis et. Nunc sit amet dictum urna, fringilla vestibulum ex. Etiam mollis odio a ullamcorper viverra. Aliquam ultricies arcu in tortor mollis, sit amet facilisis risus tempor. Donec volutpat gravida odio ut pharetra. Ut rutrum, justo sed interdum mattis, tortor erat aliquam tortor, nec venenatis dui augue vitae ligula.</p>
+        <Card.Description>
+          {address}<br />{address_2}
+        </Card.Description>
+
+        <Card.Description>
+          <Segment basic>
+            <Statistic>
+              <Statistic.Value>{ratings.yelp}</Statistic.Value>
+              <Statistic.Label>Yelp</Statistic.Label>
+            </Statistic>
+            <Statistic>
+              <Statistic.Value>{ratings.foursquare}</Statistic.Value>
+              <Statistic.Label>Foursquare</Statistic.Label>
+            </Statistic>
+            <Statistic>
+              <Statistic.Value>{ratings.foursquare}</Statistic.Value>
+              <Statistic.Label>TripAdvisor</Statistic.Label>
+            </Statistic>
+            <Statistic>
+              <Statistic.Value>{ratings.foursquare}</Statistic.Value>
+              <Statistic.Label>Seamless</Statistic.Label>
+            </Statistic>
+          </Segment>
+        </Card.Description>
       </Card.Content>
     )
 
+    return content
+  }
+
+  render() {
+
+
     return (
       <React.Fragment>
-        <Card.Group onClick={this.handleClick}>
-          <Card fluid link>
+        <Card.Group>
+          <Card fluid>
             <Card.Content>
-              <Card.Header>{this.props.restaurant.name}</Card.Header>
-              <Card.Description><p>{this.props.restaurant.street}<br />{this.props.restaurant.city}, {this.props.restaurant.state}, {this.props.restaurant.zipcode}</p></Card.Description>
+              <Card.Header onClick={this.handleClick}>{this.props.restaurant.name}</Card.Header>
             </Card.Content>
-            { this.state.showDetails ? content : null }
+            { this.state.showDetails ? this.showDetails() : null }
           </Card>
         </Card.Group>
       </React.Fragment>
