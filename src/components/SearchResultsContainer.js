@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { Redirect } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom'
 
 import SearchResultsItem from './SearchResultsItem'
 
@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 
 import { getAllRestaurants, getNearbyRestaurants } from '../actions'
 
-import { Loader, Dimmer, Segment } from 'semantic-ui-react'
+import { Loader, Dimmer } from 'semantic-ui-react'
 
 class SearchResultsContainer extends Component {
   state = {

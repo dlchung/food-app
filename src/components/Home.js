@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 
-import HomeSearchBar from './HomeSearchBar'
-import NavAvatar from './NavAvatar'
+// import HomeSearchBar from './HomeSearchBar'
+// import NavAvatar from './NavAvatar'
 
-import { Container, Grid, Divider, Header, Image } from 'semantic-ui-react'
+import { Container, Grid, Divider } from 'semantic-ui-react'
 
 export default class Home extends Component {
   render() {
     return (
       <React.Fragment>
         <Container>
-          
+
           <Grid centered>
             <Grid.Row>
               <Grid.Column width={5}>
