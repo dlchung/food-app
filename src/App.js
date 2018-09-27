@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
-import Home from './components/Home'
+import HomeContainer from './components/HomeContainer'
 import SearchResultsContainer from './components/SearchResultsContainer'
 import NavAvatar from './components/NavAvatar'
 import HomeSearchBar from './components/HomeSearchBar'
@@ -23,7 +23,7 @@ class App extends Component {
               </Grid.Column>
             </Grid.Row>
           </Grid>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={HomeContainer} />
           <Route path="/search" component={SearchResultsContainer} />
         </Container>
       </React.Fragment>

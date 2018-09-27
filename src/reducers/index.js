@@ -22,6 +22,12 @@ const reducer = (state = initialState, action) => {
         latLng: action.payload.latLng
       }
 
+    case "SET_KEYWORDS":
+      return {
+        ...state,
+        keywords: action.payload.keywords
+      }
+
     default:
       return state
   }

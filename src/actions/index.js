@@ -34,6 +34,15 @@ export const setLocation = (selectedLocation, latLng) => {
   }
 }
 
+export const setKeywords = (keywords) => {
+  return {
+    type: 'SET_KEYWORDS',
+    payload: {
+      keywords
+    }
+  }
+}
+
 const setNearbyRestaurants = (restaurants) => {
   return {
     type: 'GET_NEARBY_RESTAURANTS',
