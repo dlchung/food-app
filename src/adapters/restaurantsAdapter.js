@@ -17,7 +17,7 @@ export const fetchNearbyRestaurants = (latLng) => {
 
 export const fetchRestaurantRatings = (restaurant_id = null) => {
   const ratings = {
-    yelp: 5.3,
+    yelp: 4.3,
     foursquare: 4.2,
     tripadvisor: 3.5,
     seamless: 3.9

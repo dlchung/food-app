@@ -31,8 +31,7 @@ export default class SearchResultsItem extends Component {
       <Card.Content>
         <Card.Description>
           <Grid>
-            <Grid.Column><Icon name="address card outline" size="huge" /></Grid.Column>
-            <Grid.Column width={2}>{address}<br />{address_2}</Grid.Column>
+            <Grid.Column>{address}<br />{address_2}</Grid.Column>
           </Grid>
         </Card.Description>
 
