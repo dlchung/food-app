@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { fetchRestaurantRatings } from '../adapters/restaurantsAdapter'
 
-import { Card, List, Rating, Label, Segment, Statistic } from 'semantic-ui-react'
+import { Card, List, Rating, Label, Segment, Statistic, Icon, Grid } from 'semantic-ui-react'
 
 export default class SearchResultsItem extends Component {
   state = {
@@ -30,11 +30,14 @@ export default class SearchResultsItem extends Component {
     const content = (
       <Card.Content>
         <Card.Description>
-          {address}<br />{address_2}
+          <Grid>
+            <Grid.Column><Icon name="address card outline" size="huge" /></Grid.Column>
+            <Grid.Column width={2}>{address}<br />{address_2}</Grid.Column>
+          </Grid>
         </Card.Description>
 
         <Card.Description>
-          <Segment basic>
+          <Segment basic textAlign="center">
             <Statistic>
               <Statistic.Value>{ratings.yelp}</Statistic.Value>
               <Statistic.Label>Yelp</Statistic.Label>
