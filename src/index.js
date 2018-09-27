@@ -7,13 +7,14 @@ import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from  './reducers'
 import thunk from 'redux-thunk'
 
 import 'semantic-ui-css/semantic.min.css';
 
-const store = createStore(reducer, applyMiddleware(thunk))
+const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+const store = createStore(reducer, composeEnhancer(applyMiddleware(thunk)))
 
 ReactDOM.render(
   <Provider store={store}>

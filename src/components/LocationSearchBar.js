@@ -73,10 +73,4 @@ export default class LocationSearchBar extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    selectedLocation: state.selectedLocation
-  }
-}
-
-export default connect(mapStateToProps, {setLocation})(LocationSearchBar)
+export default connect(null, {setLocation})(LocationSearchBar)

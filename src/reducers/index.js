@@ -1,6 +1,7 @@
 const initialState = { restaurants: [] }
 
 const reducer = (state = initialState, action) => {
+  // console.log("hit switch", action)
   switch(action.type) {
     case "GET_ALL_RESTAURANTS":
       return {
@@ -13,12 +14,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         restaurants: action.payload.restaurants
-    }
+      }
 
     case "SET_LOCATION":
+      // console.log("hit reducer")
       return {
         ...state,
-        selectedLocation: action.payload.selectedLocation,
         latLng: action.payload.latLng
       }
 

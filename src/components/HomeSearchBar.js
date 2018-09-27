@@ -23,7 +23,7 @@ class HomeSearchBar extends Component {
       <React.Fragment>
         <Form>
           <Input fluid
-            label={{content: "Find", basic: "true"}}
+            label={{content: "Find", basic: true}}
             action={{content: "Search"}}
             size="huge"
             placeholder="chinese, ramen, bagels..."

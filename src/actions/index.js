@@ -19,24 +19,36 @@ export const getNearbyRestaurants = (latLng) => {
   }
 }
 
-export const setLocation = (selectedLocation, latLng) => {
-  return (dispatch) => {
-    let coordinates = {}
-    latLng.then(data => {
-      coordinates = Object.assign({}, data)
-      dispatch({
-        type: 'SET_LOCATION',
-        payload: {
-          selectedLocation, latLng: coordinates
-        }
-      })
-    })
+// export const setLocation = (latLng) => {
+//   return (dispatch) => {
+//     let coordinates = {}
+//     latLng.then(data => {
+//       coordinates = Object.assign({}, data)
+//       dispatch({
+//         type: 'SET_LOCATION',
+//         payload: {
+//           latLng: coordinates // {lat: x, lng: y}
+//         }
+//       })
+//     })
+//   }
+// }
+
+export const setLocation = (latLng) => {
+  // console.log("hit action", latLng)
+  let coordinates = {}
+  coordinates = Object.assign({}, latLng)
+  return {
+    type: "SET_LOCATION",
+    payload: {
+      latLng: coordinates // {lat: x, lng: y}
+    }
   }
 }
 
 export const setKeywords = (keywords) => {
   return {
-    type: 'SET_KEYWORDS',
+    type: "SET_KEYWORDS",
     payload: {
       keywords
     }
@@ -45,7 +57,7 @@ export const setKeywords = (keywords) => {
 
 const setNearbyRestaurants = (restaurants) => {
   return {
-    type: 'GET_NEARBY_RESTAURANTS',
+    type: "GET_NEARBY_RESTAURANTS",
     payload: {
       restaurants
     }
@@ -54,7 +66,7 @@ const setNearbyRestaurants = (restaurants) => {
 
 const setRestaurants = (restaurants) => {
   return {
-    type: 'GET_ALL_RESTAURANTS',
+    type: "GET_ALL_RESTAURANTS",
     payload: {
       restaurants
     }

@@ -3,17 +3,27 @@ import React, { Component } from 'react';
 // import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
+import { connect } from 'react-redux'
+import { setLocation } from './actions'
+
 import HomeContainer from './components/HomeContainer'
 import SearchResultsContainer from './components/SearchResultsContainer'
 import NavAvatar from './components/NavAvatar'
 import HomeSearchBar from './components/HomeSearchBar'
+import GeoLocate from './components/GeoLocate'
 
 import { Grid, Container } from 'semantic-ui-react'
 
 class App extends Component {
+  getLatLng = (latLng) => {
+    // console.log("getLatLng", latLng)
+    this.props.setLocation(latLng)
+  }
+
   render() {
     return (
       <React.Fragment>
+        <GeoLocate getLatLng={this.getLatLng} />
         <Container>
           <NavAvatar />
           <Grid centered>
@@ -31,4 +41,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, {setLocation})(App)

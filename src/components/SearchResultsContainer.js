@@ -73,7 +73,6 @@ const mapStateToProps = (state) => {
   // console.log("STATE", state)
   return {
     restaurants: state.restaurants,
-    selectedLocation: state.selectedLocation,
     latLng: state.latLng,
     keywords: state.keywords
   }
