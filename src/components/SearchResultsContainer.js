@@ -25,7 +25,7 @@ class SearchResultsContainer extends Component {
   componentDidUpdate() {
     // console.log(this.props.latLng, this.props.restaurants.length > 0)
     if(this.props.latLng && this.props.restaurants.length < 1) {
-      this.props.getNearbyRestaurants(this.props.latLng)
+      this.props.getNearbyRestaurants(this.props.latLng, this.props.keyword)
     }
 
     if(this.props.restaurants.length > 1 && this.state.loading !== false) {
@@ -74,7 +74,7 @@ const mapStateToProps = (state) => {
   return {
     restaurants: state.restaurants,
     latLng: state.latLng,
-    keywords: state.keywords
+    keyword: state.keyword
   }
 }
 

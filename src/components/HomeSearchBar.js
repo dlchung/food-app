@@ -7,23 +7,24 @@ import { Input, Form } from 'semantic-ui-react'
 
 class HomeSearchBar extends Component {
   state = {
-    searchText: ""
+    keyword: ""
   }
 
   handleChange = (e) => {
-    this.setState({ searchText: e.target.value })
+    this.setState({ keyword: e.target.value })
   }
 
-  handleSubmit = () => {
-    console.log("submitted")
+  handleSubmit = (e) => {
+    console.log("submitted", this.state.keyword)
+    this.props.setKeywords(this.state.keyword)
   }
 
   render() {
     return (
       <React.Fragment>
-        <Form>
-          <Input fluid
-            label={{content: "Find", basic: true}}
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Input fluid
+            label={{content: "Find", basic: "true"}}
             action={{content: "Search"}}
             size="huge"
             placeholder="chinese, ramen, bagels..."

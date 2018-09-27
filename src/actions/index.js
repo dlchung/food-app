@@ -10,9 +10,9 @@ export const getAllRestaurants = () => {
   }
 }
 
-export const getNearbyRestaurants = (latLng) => {
+export const getNearbyRestaurants = (latLng, keyword) => {
   return (dispatch) => {
-    fetchNearbyRestaurants(latLng)
+    fetchNearbyRestaurants(latLng, keyword)
       .then(resp => {
         dispatch(setNearbyRestaurants(resp.data))
       })
@@ -46,11 +46,11 @@ export const setLocation = (latLng) => {
   }
 }
 
-export const setKeywords = (keywords) => {
+export const setKeywords = (keyword) => {
   return {
     type: "SET_KEYWORDS",
     payload: {
-      keywords
+      keyword
     }
   }
 }

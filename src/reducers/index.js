@@ -26,7 +26,7 @@ const reducer = (state = initialState, action) => {
     case "SET_KEYWORDS":
       return {
         ...state,
-        keywords: action.payload.keywords
+        keyword: action.payload.keyword
       }
 
     default:
