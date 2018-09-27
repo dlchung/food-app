@@ -63,9 +63,9 @@ class HomeSearchBar extends Component {
 
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
-              <Input icon={<Icon name="search" circular />} iconPosition="right" size="massive" fluid
+              <Input fluid label={{content: "Find", basic: "true"}} action={{content: "Search", color: "yellow"}} size="huge" 
                 {...getInputProps({
-                  placeholder: 'Your Address ...',
+                  placeholder: 'chinese, ramen, bagels...',
                   className: 'location-search-input',
                 })}
               />

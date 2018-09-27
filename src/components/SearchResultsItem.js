@@ -46,11 +46,11 @@ export default class SearchResultsItem extends Component {
               <Statistic.Label>Foursquare</Statistic.Label>
             </Statistic>
             <Statistic>
-              <Statistic.Value>{ratings.foursquare}</Statistic.Value>
+              <Statistic.Value>{ratings.tripadvisor}</Statistic.Value>
               <Statistic.Label>TripAdvisor</Statistic.Label>
             </Statistic>
             <Statistic>
-              <Statistic.Value>{ratings.foursquare}</Statistic.Value>
+              <Statistic.Value>{ratings.seamless}</Statistic.Value>
               <Statistic.Label>Seamless</Statistic.Label>
             </Statistic>
           </Segment>

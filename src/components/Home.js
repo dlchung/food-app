@@ -10,7 +10,6 @@ export default class Home extends Component {
     return (
       <React.Fragment>
         <Container>
-
           <Grid centered>
             <Grid.Row>
               <Grid.Column width={5}>
