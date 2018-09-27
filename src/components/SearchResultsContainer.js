@@ -12,21 +12,30 @@ import { Loader, Dimmer } from 'semantic-ui-react'
 
 class SearchResultsContainer extends Component {
   state = {
-    loading: true,
-    redirect: false
+    loading: false,
+    getResults: true
   }
 
   componentDidMount() {
+    console.log(this.props.latLng)
     if(!this.props.latLng) {
-      this.props.getAllRestaurants()
+      // this.props.getAllRestaurants()
     }
   }
 
   componentDidUpdate() {
-    // console.log(this.props.latLng, this.props.restaurants.length > 0)
-    if(this.props.latLng && this.props.restaurants.length < 1) {
-      this.props.getNearbyRestaurants(this.props.latLng, this.props.keyword)
+    // console.log("componentDidUpdate", this.props.latLng, this.props.restaurants.length, this.state.getResults)
+
+    if(this.state.getResults === true) {
+      if(this.props.latLng) {
+        this.props.getNearbyRestaurants(this.props.latLng, this.props.keyword)
+        this.setState({ getResults: false })
+      }
     }
+    //
+    // if(this.props.latLng && this.state.getResults === true) {
+    //   this.props.getNearbyRestaurants(this.props.latLng, this.props.keyword)
+    // }
 
     if(this.props.restaurants.length > 1 && this.state.loading !== false) {
       // console.log("TESTING")
@@ -36,16 +45,6 @@ class SearchResultsContainer extends Component {
     // console.log("PROPS", this.props)
   }
 
-  // setRedirect = () => {
-  //   this.setState({ redirect: true })
-  // }
-  //
-  // renderRedirect = () => {
-  //   if(this.state.redirect) {
-  //     return <Redirect to='/' />
-  //   }
-  // }
-
   showResults = (restaurants) => {
     return restaurants.map(restaurant => {
       return <SearchResultsItem restaurant={restaurant} key={restaurant.id} />
@@ -53,7 +52,7 @@ class SearchResultsContainer extends Component {
   }
 
   render() {
-    console.log("render", this.props)
+    // console.log("render", this.props)
     return (
       <React.Fragment>
         <div>

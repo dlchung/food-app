@@ -55,6 +55,15 @@ export const setKeywords = (keyword) => {
   }
 }
 
+export const allowGetResults = (getResults) => {
+  return {
+    type: "ALLOW_GET_RESULTS",
+    payload: {
+      getResults
+    }
+  }
+}
+
 const setNearbyRestaurants = (restaurants) => {
   return {
     type: "GET_NEARBY_RESTAURANTS",

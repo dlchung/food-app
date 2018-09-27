@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setKeywords } from '../actions'
 
+import { withRouter } from 'react-router'
+
 import { Input, Form } from 'semantic-ui-react'
 
 class HomeSearchBar extends Component {
@@ -15,8 +17,12 @@ class HomeSearchBar extends Component {
   }
 
   handleSubmit = (e) => {
-    console.log("submitted", this.state.keyword)
+    // console.log("submitted", this.state.keyword)
     this.props.setKeywords(this.state.keyword)
+    // console.log(this.props.history)
+    if(this.props.history.location.pathname !== "/search") {
+      this.props.history.push('/search')
+    }
   }
 
   render() {
@@ -36,4 +42,4 @@ class HomeSearchBar extends Component {
   }
 }
 
-export default connect(null, {setKeywords})(HomeSearchBar)
+export default withRouter(connect(null, {setKeywords})(HomeSearchBar))

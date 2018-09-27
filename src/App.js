@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 // import './App.css';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { Switch, Route, Link, withRouter } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 import { setLocation } from './actions'
@@ -33,12 +33,14 @@ class App extends Component {
               </Grid.Column>
             </Grid.Row>
           </Grid>
-          <Route exact path="/" component={HomeContainer} />
-          <Route path="/search" component={SearchResultsContainer} />
+          <Switch>
+            <Route exact path="/" component={HomeContainer} />
+            <Route path="/search" component={SearchResultsContainer} />
+          </Switch>
         </Container>
       </React.Fragment>
     );
   }
 }
 
-export default connect(null, {setLocation})(App)
+export default withRouter(connect(null, {setLocation})(App))

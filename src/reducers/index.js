@@ -29,6 +29,12 @@ const reducer = (state = initialState, action) => {
         keyword: action.payload.keyword
       }
 
+    case "ALLOW_GET_RESULTS":
+      return {
+        ...state,
+        getResults: action.payload.getResults
+      }
+
     default:
       return state
   }
