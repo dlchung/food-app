@@ -15,13 +15,7 @@ export const fetchNearbyRestaurants = (latLng, keyword) => {
   return axios.post(`${API_URL}/nearby`, body)
 }
 
-export const fetchRestaurantRatings = (restaurant_id = null) => {
-  const ratings = {
-    yelp: 4.3,
-    foursquare: 4.2,
-    tripadvisor: 3.5,
-    seamless: 3.9
-  }
-
-  return ratings
+export const fetchRestaurantRating = (restaurant_id, platform) => {
+  const body = { restaurant_id, platform }
+  return axios.post(`${API_URL}/rating`, body)
 }

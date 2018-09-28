@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 
-import { fetchRestaurantRatings } from '../adapters/restaurantsAdapter'
+import SearchResultsItemRatings from './SearchResultsItemRatings'
 
-import { Card, List, Rating, Label, Segment, Statistic, Icon, Grid } from 'semantic-ui-react'
+import { Card, Grid } from 'semantic-ui-react'
 
 export default class SearchResultsItem extends Component {
   state = {
-    showDetails: true,
-    restaurantRatings: {}
+    showDetails: true
+  }
+
+  componentDidMount() {
   }
 
   handleClick = () => {
@@ -16,15 +18,10 @@ export default class SearchResultsItem extends Component {
     this.setState({ showDetails: !this.state.showDetails })
   }
 
-  getRatings = () => {
-    return fetchRestaurantRatings()
-  }
-
   showDetails = () => {
     const address = this.props.restaurant.street
     const address_2 = `${this.props.restaurant.city}, ${this.props.restaurant.state}, ${this.props.restaurant.zipcode}`
 
-    const ratings = this.getRatings()
     const square = { width: 150, height: 150}
 
     const content = (
@@ -35,26 +32,7 @@ export default class SearchResultsItem extends Component {
           </Grid>
         </Card.Description>
 
-        <Card.Description>
-          <Segment basic textAlign="center">
-            <Statistic>
-              <Statistic.Value>{ratings.yelp}</Statistic.Value>
-              <Statistic.Label>Yelp</Statistic.Label>
-            </Statistic>
-            <Statistic>
-              <Statistic.Value>{ratings.foursquare}</Statistic.Value>
-              <Statistic.Label>Foursquare</Statistic.Label>
-            </Statistic>
-            <Statistic>
-              <Statistic.Value>{ratings.tripadvisor}</Statistic.Value>
-              <Statistic.Label>TripAdvisor</Statistic.Label>
-            </Statistic>
-            <Statistic>
-              <Statistic.Value>{ratings.seamless}</Statistic.Value>
-              <Statistic.Label>Seamless</Statistic.Label>
-            </Statistic>
-          </Segment>
-        </Card.Description>
+        <SearchResultsItemRatings restaurant={this.props.restaurant} />
       </Card.Content>
     )
 
