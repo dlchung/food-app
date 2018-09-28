@@ -5,7 +5,7 @@ import React, { Component } from 'react'
 
 import { Container, Grid, Divider } from 'semantic-ui-react'
 
-export default class Home extends Component {
+export default class HomeContainer extends Component {
   render() {
     return (
       <React.Fragment>

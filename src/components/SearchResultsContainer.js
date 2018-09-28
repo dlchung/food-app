@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-// import { Redirect } from 'react-router-dom'
-
 import SearchResultsItem from './SearchResultsItem'
 
 import { connect } from 'react-redux'
@@ -18,41 +16,44 @@ class SearchResultsContainer extends Component {
 
   componentDidMount() {
     console.log(this.props.latLng)
-    if(!this.props.latLng) {
-      // this.props.getAllRestaurants()
-    }
+    this.createResults()
   }
 
-  componentDidUpdate() {
-    // console.log("componentDidUpdate", this.props.latLng, this.props.restaurants.length, this.state.getResults)
-
-    if(this.state.getResults === true) {
-      if(this.props.latLng) {
-        this.props.getNearbyRestaurants(this.props.latLng, this.props.keyword)
-        this.setState({ getResults: false })
-      }
-    }
-    //
-    // if(this.props.latLng && this.state.getResults === true) {
-    //   this.props.getNearbyRestaurants(this.props.latLng, this.props.keyword)
-    // }
-
-    if(this.props.restaurants.length > 1 && this.state.loading !== false) {
-      // console.log("TESTING")
-      this.setState({ loading: false })
-    }
-
+  componentDidUpdate(prevProps) {
+    console.log("update", this.state)
     // console.log("PROPS", this.props)
+    // console.log("PREVPROPS", prevProps)
+
+    if(this.props.keyword !== prevProps.keyword) {
+      console.log("different")
+      // this.setState({ loading: true })
+      this.createResults()
+    }
   }
 
-  showResults = (restaurants) => {
+  createResults = () => {
+    const latLng = this.props.latLng
+    const keyword = this.props.keyword
+
+    if(this.props.latLng && this.props.keyword) {
+      console.log("getNearbyRestaurants")
+      this.props.getNearbyRestaurants(latLng, keyword)
+    } else {
+      console.log("getAllRestaurants")
+      this.props.getAllRestaurants()
+    }
+
+    // this.setState({ loading: false })
+  }
+
+  renderResults = (restaurants) => {
     return restaurants.map(restaurant => {
       return <SearchResultsItem restaurant={restaurant} key={restaurant.id} />
     })
   }
 
   render() {
-    // console.log("render", this.props)
+    console.log("render")
     return (
       <React.Fragment>
         <div>
@@ -60,7 +61,7 @@ class SearchResultsContainer extends Component {
             <Loader content="Loading..." />
           </Dimmer>
 
-          {this.props.restaurants.length > 0 ? this.showResults(this.props.restaurants) : null}
+          {this.props.restaurants.length > 0 ? this.renderResults(this.props.restaurants) : null}
         </div>
 
       </React.Fragment>

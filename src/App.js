@@ -23,7 +23,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <GeoLocate getLatLng={this.getLatLng} />
+        { this.props.latLng ? null : <GeoLocate getLatLng={this.getLatLng} /> }
         <Container>
           <NavAvatar />
           <Grid centered>
@@ -43,4 +43,10 @@ class App extends Component {
   }
 }
 
-export default withRouter(connect(null, {setLocation})(App))
+const mapStateToProps = (state) => {
+  return {
+    latLng: state.latLng
+  }
+}
+
+export default withRouter(connect(mapStateToProps, {setLocation})(App))
