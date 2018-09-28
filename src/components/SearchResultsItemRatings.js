@@ -16,11 +16,24 @@ export default class SearchResultsItemRatings extends Component {
   }
 
   getRatings = () => {
-    const response = fetchRestaurantRating(this.props.restaurant.id, "yelp")
-    response.then(resp => this.setState(resp.data))
+    const yelp_resp = fetchRestaurantRating(this.props.restaurant.id, "yelp")
+    yelp_resp.then(resp => {
+      console.log("yelp_resp", resp)
+      this.setState(resp.data)
+    })
+
+    const foursquare_resp = fetchRestaurantRating(this.props.restaurant.id, "foursquare")
+    foursquare_resp.then(resp => {
+      console.log("foursquare_resp", resp)
+      this.setState(resp.data)
+    })
   }
 
   statisticColor = (statistic) => {
+    if(statistic > 5) {
+      statistic = statistic / 2
+    }
+    
     if(statistic !== "n/a") {
       const score = parseInt(statistic, 10)
       if(score > 3.4) {
