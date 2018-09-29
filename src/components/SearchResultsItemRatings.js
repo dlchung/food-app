@@ -56,10 +56,10 @@ export default class SearchResultsItemRatings extends Component {
 
   ratingSize = (score) => {
     if(score === "n/a") {
-      return "small"
+      return "tiny"
     }
     else {
-      return ""
+      return "small"
     }
   }
 
@@ -69,16 +69,16 @@ export default class SearchResultsItemRatings extends Component {
         <Card.Description>
           <Segment basic textAlign="center">
             <Statistic color={this.yelpColor(this.props.yelpRating)} size={this.ratingSize(this.props.yelpRating)}>
-              <Statistic.Value>{this.props.yelpRating}</Statistic.Value>
               <Statistic.Label>Yelp</Statistic.Label>
+              <Statistic.Value>{this.props.yelpRating}</Statistic.Value>
             </Statistic>
             <Statistic color={this.foursquareColor(this.props.foursquareRating)} size={this.ratingSize(this.props.foursquareRating)}>
-              <Statistic.Value>{this.props.foursquareRating}</Statistic.Value>
               <Statistic.Label>Foursquare</Statistic.Label>
+              <Statistic.Value>{this.props.foursquareRating}</Statistic.Value>
             </Statistic>
             <Statistic color={this.googleColor(this.props.googleRating)} size={this.ratingSize(this.props.googleRating)}>
-              <Statistic.Value>{this.props.googleRating}</Statistic.Value>
               <Statistic.Label>Google</Statistic.Label>
+              <Statistic.Value>{this.props.googleRating}</Statistic.Value>
             </Statistic>
           </Segment>
         </Card.Description>
