@@ -10,7 +10,8 @@ export default class SearchResultsItem extends Component {
     showDetails: false,
     yelpRating: "n/a",
     foursquareRating: "n/a",
-    googleplacesRating: "n/a"
+    googleplacesRating: "n/a",
+    zomatoRating: "n/a"
   }
 
   componentDidMount() {
@@ -45,6 +46,7 @@ export default class SearchResultsItem extends Component {
           yelpRating={this.state.yelpRating}
           foursquareRating={this.state.foursquareRating}
           googleplacesRating={this.state.googleplacesRating}
+          zomatoRating={this.state.zomatoRating}
         />
       </Card.Content>
     )
