@@ -38,7 +38,7 @@ export default class SearchResultsItemRatings extends Component {
     }
   }
 
-  googleColor = (num) => {
+  googleplacesColor = (num) => {
     if(num !== "n/a") {
       const score = parseInt(num, 10)
       if(score > 3.4) {
@@ -76,9 +76,9 @@ export default class SearchResultsItemRatings extends Component {
               <Statistic.Label>Foursquare</Statistic.Label>
               <Statistic.Value>{this.props.foursquareRating}</Statistic.Value>
             </Statistic>
-            <Statistic color={this.googleColor(this.props.googleRating)} size={this.ratingSize(this.props.googleRating)}>
+            <Statistic color={this.googleplacesColor(this.props.googleplacesRating)} size={this.ratingSize(this.props.googleplacesRating)}>
               <Statistic.Label>Google</Statistic.Label>
-              <Statistic.Value>{this.props.googleRating}</Statistic.Value>
+              <Statistic.Value>{this.props.googleplacesRating}</Statistic.Value>
             </Statistic>
           </Segment>
         </Card.Description>

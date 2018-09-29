@@ -10,7 +10,7 @@ export default class SearchResultsItem extends Component {
     showDetails: false,
     yelpRating: "n/a",
     foursquareRating: "n/a",
-    googleRating: "n/a"
+    googleplacesRating: "n/a"
   }
 
   componentDidMount() {
@@ -44,7 +44,7 @@ export default class SearchResultsItem extends Component {
           restaurant={this.props.restaurant}
           yelpRating={this.state.yelpRating}
           foursquareRating={this.state.foursquareRating}
-          googleRating={this.state.googleRating}
+          googleplacesRating={this.state.googleplacesRating}
         />
       </Card.Content>
     )
@@ -68,11 +68,16 @@ export default class SearchResultsItem extends Component {
         this.setState(resp.data)
       }
     })
+
+    const googleplaces_resp = fetchRestaurantRating(this.props.restaurant.id, "googleplaces")
+    googleplaces_resp.then(resp => {
+      if(resp.data["googleplacesRating"]) {
+        this.setState(resp.data)
+      }
+    })
   }
 
   render() {
-
-
     return (
       <React.Fragment>
         <Card.Group>
