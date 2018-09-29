@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 
 import SearchResultsItemRatings from './SearchResultsItemRatings'
+import { fetchRestaurantRating } from '../adapters/restaurantsAdapter'
 
 import { Card, Grid } from 'semantic-ui-react'
 
 export default class SearchResultsItem extends Component {
   state = {
-    showDetails: true
+    showDetails: false,
+    yelpRating: "n/a",
+    foursquareRating: "n/a"
   }
 
   componentDidMount() {
@@ -15,6 +18,10 @@ export default class SearchResultsItem extends Component {
   handleClick = () => {
     // console.log("handleClick", e.currentTarget.querySelector(".restaurant-details"))
     // const container = e.currentTarget.querySelector(".restaurant-details")
+    if(this.state.showDetails === false) {
+      this.getRatings()
+    }
+
     this.setState({ showDetails: !this.state.showDetails })
   }
 
@@ -32,11 +39,33 @@ export default class SearchResultsItem extends Component {
           </Grid>
         </Card.Description>
 
-        <SearchResultsItemRatings restaurant={this.props.restaurant} />
+        <SearchResultsItemRatings
+          restaurant={this.props.restaurant}
+          yelpRating={this.state.yelpRating}
+          foursquareRating={this.state.foursquareRating}
+        />
       </Card.Content>
     )
 
     return content
+  }
+
+  getRatings = () => {
+    const yelp_resp = fetchRestaurantRating(this.props.restaurant.id, "yelp")
+    yelp_resp.then(resp => {
+      // console.log("yelp_resp", resp)
+      if(resp.data["yelpRating"]) {
+        this.setState(resp.data)
+      }
+    })
+
+    const foursquare_resp = fetchRestaurantRating(this.props.restaurant.id, "foursquare")
+    foursquare_resp.then(resp => {
+      // console.log("foursquare_resp", resp)
+      if(resp.data["foursquareRating"]) {
+        this.setState(resp.data)
+      }
+    })
   }
 
   render() {

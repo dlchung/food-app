@@ -53,7 +53,7 @@ class SearchResultsContainer extends Component {
   }
 
   render() {
-    console.log("render")
+    // console.log("render", this.props)
     return (
       <React.Fragment>
         <div>
