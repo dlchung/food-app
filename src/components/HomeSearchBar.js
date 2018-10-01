@@ -5,7 +5,7 @@ import { setKeywords } from '../actions'
 
 import { withRouter } from 'react-router'
 
-import { Input, Form, Icon } from 'semantic-ui-react'
+import { Form, Icon } from 'semantic-ui-react'
 
 class HomeSearchBar extends Component {
   state = {
@@ -36,7 +36,7 @@ class HomeSearchBar extends Component {
             placeholder="chinese, ramen, bagels..."
             onChange={this.handleChange}
             iconPosition="left"
-            icon={<Icon name="food" circular="true"></Icon>}
+            icon={<Icon name="food" circular={true}></Icon>}
           />
         </Form>
       </React.Fragment>
