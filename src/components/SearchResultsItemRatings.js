@@ -3,9 +3,7 @@ import React, { Component } from 'react'
 import { Card, Segment, Statistic } from 'semantic-ui-react'
 
 export default class SearchResultsItemRatings extends Component {
-  componentDidMount() {
-    this.platform_url("yelp")
-  }
+  componentDidMount() {}
 
   fivePointColor = (num) => {
     if(num !== "n/a") {
@@ -48,10 +46,13 @@ export default class SearchResultsItemRatings extends Component {
     }
   }
 
-  platform_url = (platform) => {
-    // console.log("restaurant url", this.props.restaurant[`${platform}_url`])
-    // console.log("restaurant url", this.props.restaurant)
-    // return (<a href={this.props.restaurant.yelp_url} target="_blank">Yelp</a>)
+  platformUrl = (platform, text) => {
+    if(this.props.restaurant[`${platform}_url`]) {
+      return (<a href={this.props.restaurant[`${platform}_url`]} target="_blank">{text}</a>)
+    }
+    else {
+      return text
+    }
   }
 
   render() {
@@ -60,19 +61,19 @@ export default class SearchResultsItemRatings extends Component {
         <Card.Description>
           <Segment basic textAlign="center">
             <Statistic color={this.fivePointColor(this.props.yelpRating)} size={this.ratingSize(this.props.yelpRating)}>
-              <Statistic.Label>Yelp</Statistic.Label>
+              <Statistic.Label>{this.platformUrl("yelp", "Yelp")}</Statistic.Label>
               <Statistic.Value>{this.props.yelpRating}</Statistic.Value>
             </Statistic>
             <Statistic color={this.tenPointColor(this.props.foursquareRating)} size={this.ratingSize(this.props.foursquareRating)}>
-              <Statistic.Label>Foursquare</Statistic.Label>
+              <Statistic.Label>{this.platformUrl("foursquare", "Foursquare")}</Statistic.Label>
               <Statistic.Value>{this.props.foursquareRating}</Statistic.Value>
             </Statistic>
             <Statistic color={this.fivePointColor(this.props.googleplacesRating)} size={this.ratingSize(this.props.googleplacesRating)}>
-              <Statistic.Label>Google</Statistic.Label>
+              <Statistic.Label>{this.platformUrl("googleplaces", "Google")}</Statistic.Label>
               <Statistic.Value>{this.props.googleplacesRating}</Statistic.Value>
             </Statistic>
             <Statistic color={this.fivePointColor(this.props.zomatoRating)} size={this.ratingSize(this.props.zomatoRating)}>
-              <Statistic.Label>Zomato</Statistic.Label>
+              <Statistic.Label>{this.platformUrl("zomato", "Zomato")}</Statistic.Label>
               <Statistic.Value>{this.props.zomatoRating}</Statistic.Value>
             </Statistic>
           </Segment>
