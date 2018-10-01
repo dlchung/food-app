@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import SearchResultsItemRatings from './SearchResultsItemRatings'
 import { fetchRestaurantRating } from '../adapters/restaurantsAdapter'
 
-import { Card, Grid } from 'semantic-ui-react'
+import { Card, Grid, Segment, Image } from 'semantic-ui-react'
 
 export default class SearchResultsItem extends Component {
   state = {
@@ -29,23 +29,45 @@ export default class SearchResultsItem extends Component {
 
   showDetails = () => {
     const address = this.props.restaurant.street
-    const address_2 = `${this.props.restaurant.city}, ${this.props.restaurant.state}, ${this.props.restaurant.zipcode}`
+    const address2 = `${this.props.restaurant.city}, ${this.props.restaurant.state}, ${this.props.restaurant.zipcode}`
+
+
 
     const content = (
       <Card.Content>
-        <Card.Description>
-          <Grid>
-            <Grid.Column>{address}<br />{address_2}</Grid.Column>
-          </Grid>
-        </Card.Description>
-
-        <SearchResultsItemRatings
-          restaurant={this.props.restaurant}
-          yelpRating={this.state.yelpRating}
-          foursquareRating={this.state.foursquareRating}
-          googleplacesRating={this.state.googleplacesRating}
-          zomatoRating={this.state.zomatoRating}
-        />
+        <Grid>
+          <Grid.Row stretched>
+            <Grid.Column width={8}>
+              <Segment basic>
+                <Card.Description>
+                  {address}<br />{address2}
+                </Card.Description>
+                <Card.Description>
+                  {this.props.restaurant.phone}
+                </Card.Description>
+              </Segment>
+              <Segment basic>
+                <SearchResultsItemRatings
+                  restaurant={this.props.restaurant}
+                  yelpRating={this.state.yelpRating}
+                  foursquareRating={this.state.foursquareRating}
+                  googleplacesRating={this.state.googleplacesRating}
+                  zomatoRating={this.state.zomatoRating}
+                />
+              </Segment>
+            </Grid.Column>
+            <Grid.Column width={8}>
+              <Segment basic>
+                <Image bordered rounded
+                  src={this.getGoogleStaticMapUrl()}
+                  as="a"
+                  href={this.props.restaurant.googleplaces_url}
+                  target="_blank"
+                />
+              </Segment>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
       </Card.Content>
     )
 
@@ -53,35 +75,48 @@ export default class SearchResultsItem extends Component {
   }
 
   getRatings = () => {
-    const yelp_resp = fetchRestaurantRating(this.props.restaurant.id, "yelp")
-    yelp_resp.then(resp => {
-      // console.log("yelp_resp", resp)
+    const yelpResp = fetchRestaurantRating(this.props.restaurant.id, "yelp")
+    yelpResp.then(resp => {
+      // console.log("yelpResp", resp)
       if(resp.data["yelpRating"] && parseInt(resp.data["yelpRating"], 10) !== 0) {
         this.setState(resp.data)
       }
     })
 
-    const foursquare_resp = fetchRestaurantRating(this.props.restaurant.id, "foursquare")
-    foursquare_resp.then(resp => {
-      // console.log("foursquare_resp", resp)
+    const foursquareResp = fetchRestaurantRating(this.props.restaurant.id, "foursquare")
+    foursquareResp.then(resp => {
+      // console.log("foursquareResp", resp)
       if(resp.data["foursquareRating"] && parseInt(resp.data["foursquareRating"], 10) !== 0) {
         this.setState(resp.data)
       }
     })
 
-    const googleplaces_resp = fetchRestaurantRating(this.props.restaurant.id, "googleplaces")
-    googleplaces_resp.then(resp => {
+    const googleplacesResp = fetchRestaurantRating(this.props.restaurant.id, "googleplaces")
+    googleplacesResp.then(resp => {
       if(resp.data["googleplacesRating"] && parseInt(resp.data["googleplacesRating"], 10) !== 0) {
         this.setState(resp.data)
       }
     })
 
-    const zomato_resp = fetchRestaurantRating(this.props.restaurant.id, "zomato")
-    zomato_resp.then(resp => {
+    const zomatoResp = fetchRestaurantRating(this.props.restaurant.id, "zomato")
+    zomatoResp.then(resp => {
       if(resp.data["zomatoRating"] && parseInt(resp.data["zomatoRating"], 10) !== 0) {
         this.setState(resp.data)
       }
     })
+  }
+
+  getGoogleStaticMapUrl = () => {
+    const markers = `${this.props.restaurant.google_lat},${this.props.restaurant.google_lng}`
+    const zoom = "14"
+    const size = "500x250"
+    const format = "jpg"
+    const mapType = "roadmap"
+    const GOOGLE_PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY
+
+    const googleStaticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=${markers}&zoom=${zoom}&size=${size}&format=${format}&maptype=${mapType}&key=${GOOGLE_PLACES_API_KEY}`
+
+    return googleStaticMapUrl
   }
 
   render() {

@@ -59,7 +59,7 @@ export default class SearchResultsItemRatings extends Component {
     return (
       <React.Fragment>
         <Card.Description>
-          <Segment basic textAlign="center">
+          <Segment basic textAlign="left">
             <Statistic color={this.fivePointColor(this.props.yelpRating)} size={this.ratingSize(this.props.yelpRating)}>
               <Statistic.Label>{this.platformUrl("yelp", "Yelp")}</Statistic.Label>
               <Statistic.Value>{this.props.yelpRating}</Statistic.Value>
