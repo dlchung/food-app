@@ -56,7 +56,7 @@ export default class SearchResultsItem extends Component {
     const yelp_resp = fetchRestaurantRating(this.props.restaurant.id, "yelp")
     yelp_resp.then(resp => {
       // console.log("yelp_resp", resp)
-      if(resp.data["yelpRating"] && parseInt(resp.data["yelpRating"]) !== 0) {
+      if(resp.data["yelpRating"] && parseInt(resp.data["yelpRating"], 10) !== 0) {
         this.setState(resp.data)
       }
     })
@@ -64,21 +64,21 @@ export default class SearchResultsItem extends Component {
     const foursquare_resp = fetchRestaurantRating(this.props.restaurant.id, "foursquare")
     foursquare_resp.then(resp => {
       // console.log("foursquare_resp", resp)
-      if(resp.data["foursquareRating"] && parseInt(resp.data["foursquareRating"]) !== 0) {
+      if(resp.data["foursquareRating"] && parseInt(resp.data["foursquareRating"], 10) !== 0) {
         this.setState(resp.data)
       }
     })
 
     const googleplaces_resp = fetchRestaurantRating(this.props.restaurant.id, "googleplaces")
     googleplaces_resp.then(resp => {
-      if(resp.data["googleplacesRating"] && parseInt(resp.data["googleplacesRating"]) !== 0) {
+      if(resp.data["googleplacesRating"] && parseInt(resp.data["googleplacesRating"], 10) !== 0) {
         this.setState(resp.data)
       }
     })
 
     const zomato_resp = fetchRestaurantRating(this.props.restaurant.id, "zomato")
     zomato_resp.then(resp => {
-      if(resp.data["zomatoRating"] && parseInt(resp.data["zomatoRating"]) !== 0) {
+      if(resp.data["zomatoRating"] && parseInt(resp.data["zomatoRating"], 10) !== 0) {
         this.setState(resp.data)
       }
     })

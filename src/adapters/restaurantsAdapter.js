@@ -7,9 +7,8 @@ export const fetchAllRestaurants = () => {
   return axios.post(API_URL, body)
 }
 
-export const fetchNearbyRestaurants = (latLng, keyword) => {
+export const fetchNearbyRestaurants = (latLng, keyword, radius = "2000") => {
   const location = `${latLng.lat},${latLng.lng}`
-  const radius = "1000"
   const type = "restaurant"
   const body = { location, radius, type, keyword }
   return axios.post(`${API_URL}/nearby`, body)
