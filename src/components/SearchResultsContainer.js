@@ -15,7 +15,7 @@ class SearchResultsContainer extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.latLng)
+    // console.log(this.props.latLng)
     this.createResults()
   }
 

@@ -4,6 +4,7 @@ import { Card, Segment, Statistic } from 'semantic-ui-react'
 
 export default class SearchResultsItemRatings extends Component {
   componentDidMount() {
+    this.platform_url("yelp")
   }
 
   fivePointColor = (num) => {
@@ -45,6 +46,12 @@ export default class SearchResultsItemRatings extends Component {
     else {
       return "small"
     }
+  }
+
+  platform_url = (platform) => {
+    // console.log("restaurant url", this.props.restaurant[`${platform}_url`])
+    // console.log("restaurant url", this.props.restaurant)
+    // return (<a href={this.props.restaurant.yelp_url} target="_blank">Yelp</a>)
   }
 
   render() {
