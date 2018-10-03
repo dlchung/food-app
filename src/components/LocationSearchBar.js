@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setLocation } from '../actions'
 
-import { Input, Icon } from 'semantic-ui-react'
+import { Form, Input, Icon, Button} from 'semantic-ui-react'
 import PlacesAutocomplete, {  geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class LocationSearchBar extends Component {
@@ -17,13 +17,18 @@ class LocationSearchBar extends Component {
 
   handleSelect = address => {
     this.setState({ address })
+  }
 
-    geocodeByAddress(address) // geocode using the address
-      .then(results => {
-        getLatLng(results[0]).then(latLng => { // use first result to get latitude and longitude
-          this.props.setLocation(latLng) // set the location
-        })
-      })
+  handleClick = (e) => {
+    // const inputValue = document.querySelector("#location-address").value
+    // console.log(this.state.address)
+
+    // geocodeByAddress(address) // geocode using the address
+    //   .then(results => {
+    //     getLatLng(results[0]).then(latLng => { // use first result to get latitude and longitude
+    //       this.props.setLocation(latLng) // set the location
+    //     })
+    //   })
   }
 
   render() {
@@ -39,32 +44,45 @@ class LocationSearchBar extends Component {
 
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
-              <Input fluid label={{content: "Location", basic: true}} action={{content: "Save"}} size="huge"
-                {...getInputProps({
-                  placeholder: 'e.g. 123 River Water Way',
-                  className: 'location-search-input',
+              <Form>
+                <Form.Input fluid
+                  label="Location Label"
+                  size="big"
+                  id="location-label"
+                />
+                <Form.Input fluid
+                  label="Address or Location"
+                  size="big"
+                  id="location-address"
+                  {...getInputProps({
+                    placeholder: 'e.g. 123 River Water Way',
+                    className: 'location-search-input',
+                  })}
+                />
+
+                {loading && <div>Loading...</div>}
+
+                {suggestions.map(suggestion => {
+                  const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item'
+
+                  // inline style for demonstration purpose
+                  const style = suggestion.active ? { backgroundColor: '#ccc', cursor: 'pointer' } : { backgroundColor: '#ddd', cursor: 'pointer' }
+
+                  return (
+                    <div
+                      {...getSuggestionItemProps(suggestion, {
+                        className,
+                        style,
+                      })}
+                    >
+                      <span>{suggestion.description}</span>
+                    </div>
+                  );
                 })}
-              />
 
-              {loading && <div>Loading...</div>}
+                <Form.Button onClick={this.handleClick}>Save</Form.Button>
+              </Form>
 
-              {suggestions.map(suggestion => {
-                const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item'
-
-                // inline style for demonstration purpose
-                const style = suggestion.active ? { backgroundColor: '#ccc', cursor: 'pointer' } : { backgroundColor: '#ddd', cursor: 'pointer' }
-
-                return (
-                  <div
-                    {...getSuggestionItemProps(suggestion, {
-                      className,
-                      style,
-                    })}
-                  >
-                    <span>{suggestion.description}</span>
-                  </div>
-                );
-              })}
             </div>
           )}
 
