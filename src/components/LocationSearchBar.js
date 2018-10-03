@@ -6,7 +6,7 @@ import { setLocation } from '../actions'
 import { Input, Icon } from 'semantic-ui-react'
 import PlacesAutocomplete, {  geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
-export default class LocationSearchBar extends Component {
+class LocationSearchBar extends Component {
   state = {
     address: "",
   }
@@ -17,10 +17,12 @@ export default class LocationSearchBar extends Component {
 
   handleSelect = address => {
     this.setState({ address })
-    geocodeByAddress(address)
+
+    geocodeByAddress(address) // geocode using the address
       .then(results => {
-        // console.log("DATA", results[0])
-        this.props.setLocation(results[0], getLatLng(results[0]))
+        getLatLng(results[0]).then(latLng => { // use first result to get latitude and longitude
+          this.props.setLocation(latLng) // set the location
+        })
       })
   }
 
@@ -37,9 +39,9 @@ export default class LocationSearchBar extends Component {
 
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
-              <Input fluid label={{content: "Find", basic: "true"}} action={{content: "Search", color: "yellow"}} size="huge"
+              <Input fluid label={{content: "Location", basic: true}} action={{content: "Save"}} size="huge"
                 {...getInputProps({
-                  placeholder: 'chinese, ramen, bagels...',
+                  placeholder: 'e.g. 123 River Water Way',
                   className: 'location-search-input',
                 })}
               />

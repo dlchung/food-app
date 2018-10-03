@@ -23,7 +23,7 @@ class GeoLocate extends Component {
         : this.props.coords
           ?
           null
-          : <div>Getting the location data&hellip; </div>;
+          : <div>Getting the location data&hellip; </div>
   }
 }
 

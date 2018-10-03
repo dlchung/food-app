@@ -8,7 +8,7 @@ import { setLocation } from './actions'
 
 import HomeContainer from './components/HomeContainer'
 import SearchResultsContainer from './components/SearchResultsContainer'
-import NavAvatar from './components/NavAvatar'
+import NavBar from './components/NavBar'
 import HomeSearchBar from './components/HomeSearchBar'
 import GeoLocate from './components/GeoLocate'
 
@@ -25,7 +25,7 @@ class App extends Component {
       <React.Fragment>
         { this.props.latLng ? null : <GeoLocate getLatLng={this.getLatLng} /> }
         <Container>
-          <NavAvatar />
+          <NavBar />
           <Grid centered>
             <Grid.Row>
               <Grid.Column width={10}>

@@ -17,7 +17,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case "SET_LOCATION":
-      // console.log("hit reducer")
+      console.log("Location is now:", action.payload.latLng)
       return {
         ...state,
         latLng: action.payload.latLng
