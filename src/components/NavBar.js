@@ -13,7 +13,7 @@ import { Grid, Header, Image, Dropdown, Modal, Icon } from 'semantic-ui-react'
 class NavBar extends Component {
   state = {
     openModal: false,
-    // dropdownOptions: []
+    lastSelected: "current_location"
   }
 
   componentDidMount() {
@@ -43,6 +43,8 @@ class NavBar extends Component {
           })
         })
     }
+
+    this.setState({ lastSelected: data.value })
   }
 
   handleClose = () => {
@@ -57,7 +59,11 @@ class NavBar extends Component {
     let locations = []
     if(this.props.locations) {
       locations = this.props.locations.map(location => {
-        return { text: location.name, value: location.address }
+        let selected = false
+        if(location.address === this.state.lastSelected) {
+          selected = true
+        }
+        return { text: location.name, value: location.address, active: selected}
       })
     }
 
@@ -65,13 +71,12 @@ class NavBar extends Component {
     locations.push({ text: "+ Add Location", value: "add_location" })
 
 
-    // console.log("renderOptions", locations)
+    console.log("renderOptions", locations)
     return locations
   }
 
-  handleModalSubmit = () => {
-    this.setState( {openModal: false} )
-    // this.props.getLocations()
+  handleModalSubmit = (address) => {
+    this.setState({ openModal: false, lastSelected: address })
     console.log("handle submit")
   }
 
@@ -88,6 +93,7 @@ class NavBar extends Component {
                 onChange={this.handleChange}
                 selectOnBlur={false}
                 options={this.renderOptions()}
+                value={this.state.lastSelected}
               />
             </Grid.Column>
             <Grid.Column width={4}>

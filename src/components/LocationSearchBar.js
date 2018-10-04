@@ -36,8 +36,11 @@ class LocationSearchBar extends Component {
 
     // console.log(this.state.name, this.state.address)
     fetchAddLocation(this.state.name, this.state.address)
-    this.props.getLocations()
-    this.props.handleModalSubmit()
+      .then(resp => {
+        // console.log("fetchAddLocation", resp)
+        this.props.getLocations()
+        this.props.handleModalSubmit(resp.data.address)
+      })
   }
 
   render() {
