@@ -18,6 +18,13 @@ export default class SearchResultsItem extends Component {
   componentDidMount() {
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    // console.log("updating", this.state.averageScore, prevState.averageScore)
+    // if(this.state.averageScore !== prevState.averageScore) {
+    //   this.getAverageScore()
+    // }
+  }
+
   handleClick = () => {
     // console.log("handleClick", e.currentTarget.querySelector(".restaurant-details"))
     // const container = e.currentTarget.querySelector(".restaurant-details")
@@ -126,9 +133,34 @@ export default class SearchResultsItem extends Component {
     return googleStaticMapUrl
   }
 
-  getAverageScore = () => {
-    
-  }
+  // getAverageScore = () => {
+  //   const scores = {
+  //     yelp: this.state.yelpRating,
+  //     foursquare: this.state.foursquareRating,
+  //     googleplaces: this.state.googleplacesRating,
+  //     zomato: this.state.zomatoRating
+  //   }
+  //
+  //   let finalScore = 0
+  //
+  //   if(scores.yelp) {
+  //     finalScore += scores.yelp
+  //   }
+  //   if(scores.foursquare) {
+  //     const adjustedScore = scores.foursquare / 2
+  //     finalScore += adjustedScore
+  //   }
+  //   if(scores.googleplaces) {
+  //     finalScore += scores.googleplaces
+  //   }
+  //   if(scores.zomato) {
+  //     finalScore += scores.zomato
+  //   }
+  //
+  //   console.log("FINALSCORE", finalScore)
+  //
+  //   this.setState({ averageScore: finalScore })
+  // }
 
   render() {
     const address = this.props.restaurant.street
@@ -144,7 +176,7 @@ export default class SearchResultsItem extends Component {
                   {this.state.showDetails ? <Icon name="angle double down" /> : <Icon name="angle double right" />}
                   {this.props.restaurant.name}
                 </p>
-                <p class="result-description">
+                <p className="result-description">
                   {address}, {address2}
                 </p>
               </Card.Header>
