@@ -1,33 +1,47 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { setLocation } from '../actions'
+import { setLocation, getLocations } from '../actions'
+
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 import NavAvatar from './NavAvatar'
 import NewLocation from './NewLocation'
 
 import { Grid, Header, Image, Dropdown, Modal, Icon } from 'semantic-ui-react'
 
-const locations = [
-  { text: "Current Location", value: "current_location" },
-  { text: "Dumbo, Brooklyn, NY", value: "40.6826512,-73.9752773" },
-  { text: "Manhattan, NY", value: "40.70989179999999,-74.0063296" },
-  { text: "Queens, NY", value: "40.71643199999999,-73.997839" },
-  { text: "+ Add New Location", value: "add_new_location" }
-]
-
 class NavBar extends Component {
   state = {
-    openModal: false
+    openModal: false,
+    // dropdownOptions: []
+  }
+
+  componentDidMount() {
+    this.props.getLocations()
+    // console.log("componentDidMount", this.props)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log("UPDATE", this.props.locations)
   }
 
   handleChange = (event, data) => {
-    if(data.value === "add_new_location") {
+    if(data.value === "add_location") {
       this.newLocation()
-    } else {
+    } else if(data.value === "current_location") {
       const coords = data.value.split(",")
       const latlng = { lat: parseFloat(coords[0]), lng: parseFloat(coords[1]) }
       this.props.setLocation(latlng)
+    } else {
+      // console.log(event, data)
+
+      let copyLatLng = ""
+      geocodeByAddress(data.value)
+        .then(resp => {
+          getLatLng(resp[0]).then(latLng => {
+            console.log(latLng)
+          })
+        })
     }
   }
 
@@ -39,15 +53,30 @@ class NavBar extends Component {
     this.setState({ openModal: !this.state.openModal }, () => { console.log(this.state) })
   }
 
-  renderOptions = (options) => {
-    return options.map(option => {
-      return (
-        <Dropdown.Item />
-      )
-    })
+  renderOptions = () => {
+    let locations = []
+    if(this.props.locations) {
+      locations = this.props.locations.map(location => {
+        return { text: location.name, value: location.address }
+      })
+    }
+
+    locations.unshift({ text: "Current Location", value: "current_location" })
+    locations.push({ text: "+ Add Location", value: "add_location" })
+
+
+    // console.log("renderOptions", locations)
+    return locations
+  }
+
+  handleModalSubmit = () => {
+    this.setState( {openModal: false} )
+    // this.props.getLocations()
+    console.log("handle submit")
   }
 
   render() {
+    console.log("rendering", this.props.locations)
     return (
       <React.Fragment>
         <Grid centered>
@@ -58,13 +87,12 @@ class NavBar extends Component {
                 placeholder="Select a location"
                 onChange={this.handleChange}
                 selectOnBlur={false}
-                options={locations}
-                key={locations.value}
-              >
-
-              </Dropdown>
+                options={this.renderOptions()}
+              />
             </Grid.Column>
-            <Grid.Column width={4}><NavAvatar /></Grid.Column>
+            <Grid.Column width={4}>
+              <NavAvatar />
+            </Grid.Column>
           </Grid.Row>
         </Grid>
         <Modal open={this.state.openModal}>
@@ -77,7 +105,7 @@ class NavBar extends Component {
             </Grid>
           </Modal.Header>
           <Modal.Content>
-            <NewLocation />
+            <NewLocation handleModalSubmit={this.handleModalSubmit} />
           </Modal.Content>
         </Modal>
       </React.Fragment>
@@ -85,4 +113,10 @@ class NavBar extends Component {
   }
 }
 
-export default connect(null, {setLocation})(NavBar)
+const mapStateToProps = (state) => {
+  return {
+    locations: state.locations
+  }
+}
+
+export default connect(mapStateToProps, {setLocation, getLocations})(NavBar)

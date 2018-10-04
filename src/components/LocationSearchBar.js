@@ -1,34 +1,43 @@
 import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
-import { setLocation } from '../actions'
+import { setLocation, getLocations } from '../actions'
+import { fetchAddLocation } from '../adapters/locationsAdapter'
 
 import { Form, Input, Icon, Button} from 'semantic-ui-react'
 import PlacesAutocomplete, {  geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class LocationSearchBar extends Component {
   state = {
+    name: "",
     address: "",
   }
 
-  handleChange = address => {
+  handleNameChange = (e) => {
+    this.setState({ name: e.target.value })
+  }
+
+  handleAddressChange = (address) => {
     this.setState({ address })
   }
 
-  handleSelect = address => {
+  handleAddressSelect = (address) => {
     this.setState({ address })
   }
 
-  handleClick = (e) => {
-    // const inputValue = document.querySelector("#location-address").value
+  handleButtonClick = (e) => {
     // console.log(this.state.address)
+    geocodeByAddress(this.state.address) // geocode using the address
+      .then(results => {
+        getLatLng(results[0]).then(latLng => { // use first result to get latitude and longitude
+          this.props.setLocation(latLng) // set the location
+        })
+      })
 
-    // geocodeByAddress(address) // geocode using the address
-    //   .then(results => {
-    //     getLatLng(results[0]).then(latLng => { // use first result to get latitude and longitude
-    //       this.props.setLocation(latLng) // set the location
-    //     })
-    //   })
+    // console.log(this.state.name, this.state.address)
+    fetchAddLocation(this.state.name, this.state.address)
+    this.props.getLocations()
+    this.props.handleModalSubmit()
   }
 
   render() {
@@ -36,8 +45,8 @@ class LocationSearchBar extends Component {
       <React.Fragment>
         <PlacesAutocomplete
           value={this.state.address}
-          onChange={this.handleChange}
-          onSelect={this.handleSelect}
+          onChange={this.handleAddressChange}
+          onSelect={this.handleAddressSelect}
           debounce={500}
           highlightFirstSuggestion={true}
         >
@@ -46,9 +55,11 @@ class LocationSearchBar extends Component {
             <div>
               <Form>
                 <Form.Input fluid
-                  label="Location Label"
+                  label="Location Name"
                   size="big"
-                  id="location-label"
+                  id="location-name"
+                  value={this.state.name}
+                  onChange={this.handleNameChange}
                 />
                 <Form.Input fluid
                   label="Address or Location"
@@ -80,7 +91,7 @@ class LocationSearchBar extends Component {
                   );
                 })}
 
-                <Form.Button onClick={this.handleClick}>Save</Form.Button>
+                <Form.Button onClick={this.handleButtonClick}>Save</Form.Button>
               </Form>
 
             </div>
@@ -93,4 +104,4 @@ class LocationSearchBar extends Component {
   }
 }
 
-export default connect(null, {setLocation})(LocationSearchBar)
+export default connect(null, {setLocation, getLocations})(LocationSearchBar)

@@ -20,3 +20,13 @@ export const fetchRestaurantRating = (restaurant_id, platform) => {
   const body = { restaurant_id, platform }
   return axios.post(`${API_URL}/rating`, body)
 }
+
+export const fetchAddLocation = (name, address) => {
+  const body = { name, address }
+  return axios.post(`${API_URL}/locations/create`)
+}
+
+export const fetchDeleteLocation = (id) => {
+  const body = { id }
+  return axios.post(`${API_URL}/locations/delete`)
+}

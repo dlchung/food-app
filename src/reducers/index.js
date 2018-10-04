@@ -35,6 +35,12 @@ const reducer = (state = initialState, action) => {
         getResults: action.payload.getResults
       }
 
+    case "GET_LOCATIONS":
+      return {
+        ...state,
+        locations: action.payload.locations
+      }
+
     default:
       return state
   }

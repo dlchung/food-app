@@ -8,7 +8,7 @@ export default class NewLocation extends Component {
   render() {
     return (
       <React.Fragment>
-        <LocationSearchBar />
+        <LocationSearchBar handleModalSubmit={this.props.handleModalSubmit} />
       </React.Fragment>
     )
   }
