@@ -10,7 +10,6 @@ import { Loader, Dimmer } from 'semantic-ui-react'
 
 class SearchResultsContainer extends Component {
   state = {
-    loading: false,
     getResults: true
   }
 
@@ -19,10 +18,12 @@ class SearchResultsContainer extends Component {
     this.createResults()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
+    // console.log("searchLoading", this.props.searchLoading)
     // console.log("update", this.state)
     // console.log("PROPS", this.props)
     // console.log("PREVPROPS", prevProps)
+    console.log("isFetching", this.props.isFetching)
 
     if(this.props.keyword !== prevProps.keyword) {
       console.log("different")
@@ -44,6 +45,7 @@ class SearchResultsContainer extends Component {
     }
 
     // this.setState({ loading: false })
+    // this.props.setSearchLoading(false)
   }
 
   renderResults = (restaurants) => {
@@ -57,7 +59,7 @@ class SearchResultsContainer extends Component {
     return (
       <React.Fragment>
         <div>
-          <Dimmer active={this.state.loading ? true : false}>
+          <Dimmer active={this.props.isFetching ? true : false}>
             <Loader content="Loading..." />
           </Dimmer>
 
@@ -74,7 +76,8 @@ const mapStateToProps = (state) => {
   return {
     restaurants: state.restaurants,
     latLng: state.latLng,
-    keyword: state.keyword
+    keyword: state.keyword,
+    isFetching: state.isFetching
   }
 }
 

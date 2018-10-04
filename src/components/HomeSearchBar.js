@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import { connect } from 'react-redux'
-import { setKeywords } from '../actions'
+import { setKeywords, clearRestaurants } from '../actions'
 
 import { withRouter } from 'react-router'
 
@@ -44,4 +44,4 @@ class HomeSearchBar extends Component {
   }
 }
 
-export default withRouter(connect(null, {setKeywords})(HomeSearchBar))
+export default withRouter(connect(null, {setKeywords, clearRestaurants})(HomeSearchBar))

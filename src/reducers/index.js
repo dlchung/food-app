@@ -1,4 +1,7 @@
-const initialState = { restaurants: [] }
+const initialState = {
+  restaurants: [],
+  isFetching: true
+}
 
 const reducer = (state = initialState, action) => {
   // console.log("hit switch", action)
@@ -6,14 +9,16 @@ const reducer = (state = initialState, action) => {
     case "GET_ALL_RESTAURANTS":
       return {
         ...state,
-        restaurants: action.payload.restaurants.data.data.allRestaurants
+        restaurants: action.payload.restaurants.data.data.allRestaurants,
+        isFetching: false
       }
 
     case "GET_NEARBY_RESTAURANTS":
       // console.log("hit reducer", action)
       return {
         ...state,
-        restaurants: action.payload.restaurants
+        restaurants: action.payload.restaurants,
+        isFetching: false
       }
 
     case "SET_LOCATION":
@@ -28,12 +33,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         keyword: action.payload.keyword
       }
-
-    case "ALLOW_GET_RESULTS":
-      return {
-        ...state,
-        getResults: action.payload.getResults
-      }
+    //
+    // case "ALLOW_GET_RESULTS":
+    //   return {
+    //     ...state,
+    //     getResults: action.payload.getResults
+    //   }
 
     case "GET_LOCATIONS":
       return {
@@ -45,6 +50,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentLocation: action.payload.currentLocation
+      }
+
+    case "SET_SEARCH_LOADING":
+      console.log("hit reducer", action)
+      return {
+        ...state,
+        isFetching: action.payload.isFetching
       }
 
     default:

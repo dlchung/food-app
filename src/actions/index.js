@@ -2,7 +2,9 @@ import { fetchAllRestaurants, fetchNearbyRestaurants } from '../adapters/restaur
 import { fetchLocations } from '../adapters/locationsAdapter'
 
 export const getAllRestaurants = () => {
+  console.log("getAllRestaurants")
   return (dispatch) => {
+    dispatch(isFetching(true))
     fetchAllRestaurants()
       .then(resp => {
         // console.log("HELLO", resp)
@@ -11,13 +13,20 @@ export const getAllRestaurants = () => {
   }
 }
 
-export const getNearbyRestaurants = (latLng, keyword) => {
+export const getNearbyRestaurants = (latLng, keyword, clear = false) => {
+  console.log("getNearbyRestaurants")
   return (dispatch) => {
+    dispatch(isFetching(true))
     fetchNearbyRestaurants(latLng, keyword)
       .then(resp => {
         dispatch(setNearbyRestaurants(resp.data))
       })
   }
+}
+
+export const clearRestaurants = () => {
+  console.log("clearing restaurants")
+  setRestaurants([])
 }
 
 export const setLocation = (latLng) => {
@@ -61,11 +70,31 @@ export const setKeywords = (keyword) => {
   }
 }
 
-export const allowGetResults = (getResults) => {
+// export const setSearchLoading = (loading) => {
+//   console.log("hit action setSearchLoading", loading)
+//   return {
+//     type: "SET_SEARCH_LOADING",
+//     payload: {
+//       searchLoading: loading
+//     }
+//   }
+// }
+
+// export const allowGetResults = (getResults) => {
+//   return {
+//     type: "ALLOW_GET_RESULTS",
+//     payload: {
+//       getResults
+//     }
+//   }
+// }
+
+const isFetching = (isFetching) => {
+  console.log("isFetching action", isFetching)
   return {
-    type: "ALLOW_GET_RESULTS",
+    type: "SET_SEARCH_LOADING",
     payload: {
-      getResults
+      isFetching
     }
   }
 }
