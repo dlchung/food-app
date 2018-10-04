@@ -9,7 +9,7 @@ export const fetchAllRestaurants = () => {
   return axios.post(API_URL, body)
 }
 
-export const fetchNearbyRestaurants = (latLng, keyword, radius = "2000") => {
+export const fetchNearbyRestaurants = (latLng, keyword, radius = "1500") => {
   const location = `${latLng.lat},${latLng.lng}`
   const type = "restaurant"
   const body = { location, radius, type, keyword }
@@ -22,11 +22,11 @@ export const fetchRestaurantRating = (restaurant_id, platform) => {
 }
 
 export const fetchAddLocation = (name, address) => {
-  const body = { name, address }
+  // const body = { name, address }
   return axios.post(`${API_URL}/locations/create`)
 }
 
 export const fetchDeleteLocation = (id) => {
-  const body = { id }
+  // const body = { id }
   return axios.post(`${API_URL}/locations/delete`)
 }

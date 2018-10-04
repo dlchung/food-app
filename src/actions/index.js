@@ -42,6 +42,16 @@ export const getLocations = () => {
   }
 }
 
+// Immediate location of user
+export const setCurrentLocation = (latLng) => {
+  return {
+    type: "SET_CURRENT_LOCATION",
+    payload: {
+      currentLocation: latLng
+    }
+  }
+}
+
 export const setKeywords = (keyword) => {
   return {
     type: "SET_KEYWORDS",

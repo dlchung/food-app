@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Grid, Header, Image, Dropdown } from 'semantic-ui-react'
+import { Grid, Image } from 'semantic-ui-react'
 
 const NavAvatar = () => {
   return (

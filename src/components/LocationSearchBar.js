@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { setLocation, getLocations } from '../actions'
 import { fetchAddLocation } from '../adapters/locationsAdapter'
 
-import { Form, Input, Icon, Button} from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 import PlacesAutocomplete, {  geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class LocationSearchBar extends Component {

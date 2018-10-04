@@ -8,12 +8,13 @@ import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import NavAvatar from './NavAvatar'
 import NewLocation from './NewLocation'
 
-import { Grid, Header, Image, Dropdown, Modal, Icon } from 'semantic-ui-react'
+import { Grid, Header, Dropdown, Modal, Icon } from 'semantic-ui-react'
 
 class NavBar extends Component {
   state = {
     openModal: false,
-    lastSelected: "current_location"
+    lastSelected: "current_location",
+    currentLocation: "",
   }
 
   componentDidMount() {
@@ -27,19 +28,20 @@ class NavBar extends Component {
 
   handleChange = (event, data) => {
     if(data.value === "add_location") {
+      // console.log("add_location", data)
       this.newLocation()
     } else if(data.value === "current_location") {
-      const coords = data.value.split(",")
-      const latlng = { lat: parseFloat(coords[0]), lng: parseFloat(coords[1]) }
-      this.props.setLocation(latlng)
+      // console.log("current_location", data)
+      // const coords = data.value.split(",")
+      // const latlng = { lat: parseFloat(coords[0]), lng: parseFloat(coords[1]) }
+      this.props.setLocation(this.props.currentLocation)
     } else {
       // console.log(event, data)
-
-      let copyLatLng = ""
       geocodeByAddress(data.value)
         .then(resp => {
           getLatLng(resp[0]).then(latLng => {
-            console.log(latLng)
+            console.log("else", latLng)
+            this.props.setLocation(latLng)
           })
         })
     }
@@ -81,7 +83,7 @@ class NavBar extends Component {
   }
 
   render() {
-    console.log("rendering", this.props.locations)
+    // console.log("rendering", this.props.locations)
     return (
       <React.Fragment>
         <Grid centered>
@@ -121,7 +123,8 @@ class NavBar extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    locations: state.locations
+    locations: state.locations,
+    currentLocation: state.currentLocation
   }
 }
 

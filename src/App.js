@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { setLocation } from './actions'
+import { setLocation, setCurrentLocation } from './actions'
 
 import HomeContainer from './components/HomeContainer'
 import SearchResultsContainer from './components/SearchResultsContainer'
@@ -18,6 +18,7 @@ class App extends Component {
   getLatLng = (latLng) => {
     // console.log("getLatLng", latLng)
     this.props.setLocation(latLng)
+    this.props.setCurrentLocation(latLng)
   }
 
   render() {
@@ -49,4 +50,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, {setLocation})(App))
+export default withRouter(connect(mapStateToProps, {setLocation, setCurrentLocation})(App))

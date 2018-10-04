@@ -20,7 +20,7 @@ class SearchResultsContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("update", this.state)
+    // console.log("update", this.state)
     // console.log("PROPS", this.props)
     // console.log("PREVPROPS", prevProps)
 
