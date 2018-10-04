@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import SearchResultsItemRatings from './SearchResultsItemRatings'
 import { fetchRestaurantRating } from '../adapters/restaurantsAdapter'
 
-import { Card, Grid, Segment, Image } from 'semantic-ui-react'
+import { Card, Grid, Segment, Image, Icon } from 'semantic-ui-react'
 
 export default class SearchResultsItem extends Component {
   state = {
@@ -11,7 +11,8 @@ export default class SearchResultsItem extends Component {
     yelpRating: "n/a",
     foursquareRating: "n/a",
     googleplacesRating: "n/a",
-    zomatoRating: "n/a"
+    zomatoRating: "n/a",
+    averageScore: 0
   }
 
   componentDidMount() {
@@ -31,20 +32,26 @@ export default class SearchResultsItem extends Component {
     const address = this.props.restaurant.street
     const address2 = `${this.props.restaurant.city}, ${this.props.restaurant.state}, ${this.props.restaurant.zipcode}`
 
-
-
     const content = (
       <Card.Content>
         <Grid>
           <Grid.Row stretched>
             <Grid.Column width={8}>
               <Segment basic>
-                <Card.Description>
-                  {address}<br />{address2}
-                </Card.Description>
-                <Card.Description>
-                  {this.props.restaurant.phone}
-                </Card.Description>
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column width={8}>
+                      <Card.Description>
+                        <p>{address}<br />{address2}</p>
+                      </Card.Description>
+                    </Grid.Column>
+                    <Grid.Column width={8}>
+                      <Card.Description>
+                        <p>{this.props.restaurant.phone}</p>
+                      </Card.Description>
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
               </Segment>
               <Segment basic>
                 <SearchResultsItemRatings
@@ -119,13 +126,28 @@ export default class SearchResultsItem extends Component {
     return googleStaticMapUrl
   }
 
+  getAverageScore = () => {
+    
+  }
+
   render() {
+    const address = this.props.restaurant.street
+    const address2 = `${this.props.restaurant.city}, ${this.props.restaurant.state}, ${this.props.restaurant.zipcode}`
+
     return (
       <React.Fragment>
         <Card.Group>
           <Card fluid>
             <Card.Content>
-              <Card.Header onClick={this.handleClick}>{this.props.restaurant.name}</Card.Header>
+              <Card.Header onClick={this.handleClick} className="result-header">
+                <p>
+                  {this.state.showDetails ? <Icon name="angle double down" /> : <Icon name="angle double right" />}
+                  {this.props.restaurant.name}
+                </p>
+                <p class="result-description">
+                  {address}, {address2}
+                </p>
+              </Card.Header>
             </Card.Content>
             { this.state.showDetails ? this.showDetails() : null }
           </Card>

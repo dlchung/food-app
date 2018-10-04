@@ -19,6 +19,7 @@ class HomeSearchBar extends Component {
   handleSubmit = (e) => {
     // console.log("submitted", this.state.keyword)
     this.props.setKeywords(this.state.keyword)
+    // this.props.clearRestaurants()
     // console.log(this.props.history)
     if(this.props.history.location.pathname !== "/search") {
       this.props.history.push('/search')
@@ -31,7 +32,7 @@ class HomeSearchBar extends Component {
         <Form onSubmit={this.handleSubmit}>
           <Form.Input fluid
             label={{content: "Find", basic: "true"}}
-            action={{content: "Search"}}
+            action={{content: "Search", color: "red"}}
             size="huge"
             placeholder="chinese, ramen, bagels..."
             onChange={this.handleChange}

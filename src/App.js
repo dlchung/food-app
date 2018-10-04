@@ -24,7 +24,9 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        { this.props.latLng ? null : <GeoLocate getLatLng={this.getLatLng} /> }
+        <Container textAlign="center">
+          { this.props.latLng ? null : <GeoLocate getLatLng={this.getLatLng} /> }
+        </Container>
         <Container>
           <NavBar />
           <Grid centered>

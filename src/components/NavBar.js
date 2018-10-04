@@ -65,12 +65,12 @@ class NavBar extends Component {
         if(location.address === this.state.lastSelected) {
           selected = true
         }
-        return { text: location.name, value: location.address, active: selected}
+        return { text: location.name, value: location.address, icon: "building outline", active: selected}
       })
     }
 
-    locations.unshift({ text: "Current Location", value: "current_location" })
-    locations.push({ text: "+ Add Location", value: "add_location" })
+    locations.unshift({ text: "Current Location", value: "current_location", icon: "location arrow" })
+    locations.push({ text: "Add Location", value: "add_location", icon: "plus" })
 
 
     console.log("renderOptions", locations)
@@ -88,7 +88,7 @@ class NavBar extends Component {
       <React.Fragment>
         <Grid centered>
           <Grid.Row>
-            <Grid.Column width={8}><Header as="h1">App Logo</Header></Grid.Column>
+            <Grid.Column width={12}><Header as="h1" color="red"><a href="/" id="logo"><Icon name="coffee" />Yums</a></Header></Grid.Column>
             <Grid.Column width={4}>
               <Dropdown fluid selection
                 placeholder="Select a location"
@@ -98,9 +98,9 @@ class NavBar extends Component {
                 value={this.state.lastSelected}
               />
             </Grid.Column>
-            <Grid.Column width={4}>
-              <NavAvatar />
-            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Header size="large" color="grey">Compare restaurant ratings side-by-side.</Header>
           </Grid.Row>
         </Grid>
         <Modal open={this.state.openModal}>

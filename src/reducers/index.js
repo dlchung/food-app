@@ -53,7 +53,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case "SET_SEARCH_LOADING":
-      console.log("hit reducer", action)
+      // console.log("hit reducer", action)
       return {
         ...state,
         isFetching: action.payload.isFetching

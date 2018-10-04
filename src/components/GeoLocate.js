@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 
 import { geolocated } from 'react-geolocated'
 
+import { Message, Icon } from 'semantic-ui-react'
+
 class GeoLocate extends Component {
   componentDidUpdate() {
     if(this.props.coords) {
@@ -17,13 +19,23 @@ class GeoLocate extends Component {
 
   render() {
     return !this.props.isGeolocationAvailable
-      ? <div>Your browser does not support Geolocation</div>
+      ? <Message floating compact info size="small">
+          <Message.Content>Your browser does not support Geolocation</Message.Content>
+        </Message>
       : !this.props.isGeolocationEnabled
-        ? <div>Geolocation is not enabled</div>
+        ? <Message floating compact info size="small">
+            <Message.Content>
+              Geolocation is not enabled
+            </Message.Content>
+          </Message>
         : this.props.coords
           ?
           null
-          : <div>Getting the location data&hellip; </div>
+          : <Message floating compact info size="small">
+              <Message.Content>
+                <Icon name="circle notched" loading />Getting your location data&hellip;
+              </Message.Content>
+            </Message>
   }
 }
 

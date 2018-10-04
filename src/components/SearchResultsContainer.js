@@ -6,11 +6,11 @@ import { connect } from 'react-redux'
 
 import { getAllRestaurants, getNearbyRestaurants } from '../actions'
 
-import { Loader, Dimmer } from 'semantic-ui-react'
+import { Loader, Dimmer, Header } from 'semantic-ui-react'
 
 class SearchResultsContainer extends Component {
   state = {
-    getResults: true
+    getResults: true,
   }
 
   componentDidMount() {
@@ -23,7 +23,7 @@ class SearchResultsContainer extends Component {
     // console.log("update", this.state)
     // console.log("PROPS", this.props)
     // console.log("PREVPROPS", prevProps)
-    console.log("isFetching", this.props.isFetching)
+    // console.log("isFetching", this.props.isFetching)
 
     if(this.props.keyword !== prevProps.keyword) {
       console.log("different")
@@ -37,10 +37,10 @@ class SearchResultsContainer extends Component {
     const keyword = this.props.keyword
 
     if(this.props.latLng && this.props.keyword) {
-      console.log("getNearbyRestaurants")
+      // console.log("getNearbyRestaurants")
       this.props.getNearbyRestaurants(latLng, keyword)
     } else {
-      console.log("getAllRestaurants")
+      // console.log("getAllRestaurants")
       this.props.getAllRestaurants()
     }
 
@@ -58,14 +58,12 @@ class SearchResultsContainer extends Component {
     // console.log("render", this.props)
     return (
       <React.Fragment>
-        <div>
-          <Dimmer active={this.props.isFetching ? true : false}>
-            <Loader content="Loading..." />
-          </Dimmer>
+        <Dimmer active={this.props.isFetching ? true : false}>
+          <Loader content="Loading..." />
+        </Dimmer>
 
-          {this.props.restaurants.length > 0 ? this.renderResults(this.props.restaurants) : null}
-        </div>
-
+        <Header size="medium" color="grey">Showing top {this.props.restaurants.length} results...</Header>
+        {this.props.restaurants.length > 0 ? this.renderResults(this.props.restaurants) : null}
       </React.Fragment>
     )
   }

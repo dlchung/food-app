@@ -26,7 +26,9 @@ export const getNearbyRestaurants = (latLng, keyword, clear = false) => {
 
 export const clearRestaurants = () => {
   console.log("clearing restaurants")
-  setRestaurants([])
+  return (dispatch) => {
+    dispatch(setRestaurants([]))
+  }
 }
 
 export const setLocation = (latLng) => {
@@ -90,7 +92,7 @@ export const setKeywords = (keyword) => {
 // }
 
 const isFetching = (isFetching) => {
-  console.log("isFetching action", isFetching)
+  // console.log("isFetching action", isFetching)
   return {
     type: "SET_SEARCH_LOADING",
     payload: {
