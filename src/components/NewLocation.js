@@ -2,11 +2,31 @@ import React, { Component } from 'react'
 
 import LocationSearchBar from './LocationSearchBar'
 
+import { Grid, Header, Dropdown, Modal, Icon } from 'semantic-ui-react'
+
 export default class NewLocation extends Component {
+  handleClose = () => {
+    this.props.newLocation()
+  }
+
   render() {
+    console.log("NewLocation", this.props.openModal)
     return (
       <React.Fragment>
-        <LocationSearchBar handleModalSubmit={this.props.handleModalSubmit} />
+
+        <Modal open={this.props.openModal}>
+          <Modal.Header>
+            <Grid>
+              <Grid.Row>
+                <Grid.Column width={15}>Add New Location</Grid.Column>
+                <Grid.Column width={1}><Icon link name="close" onClick={this.handleClose} /></Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </Modal.Header>
+          <Modal.Content>
+            <LocationSearchBar handleModalSubmit={this.props.handleModalSubmit} />
+          </Modal.Content>
+        </Modal>
       </React.Fragment>
     )
   }
