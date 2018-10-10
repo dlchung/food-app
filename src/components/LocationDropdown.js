@@ -6,7 +6,7 @@ import { setLocation, getLocations } from '../actions'
 
 import NewLocation from './NewLocation'
 
-import { Grid, Header, Dropdown, Modal, Icon } from 'semantic-ui-react'
+import { Dropdown } from 'semantic-ui-react'
 
 class LocationDropdown extends Component {
   state = {

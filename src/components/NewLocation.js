@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import LocationSearchForm from './LocationSearchForm'
 
-import { Grid, Header, Dropdown, Modal, Icon } from 'semantic-ui-react'
+import { Grid, Modal, Icon } from 'semantic-ui-react'
 
 export default class NewLocation extends Component {
   handleClose = () => {
