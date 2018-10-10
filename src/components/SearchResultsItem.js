@@ -89,35 +89,46 @@ export default class SearchResultsItem extends Component {
   }
 
   getRatings = () => {
-    const yelpResp = fetchRestaurantRating(this.props.restaurant.id, "yelp")
-    yelpResp.then(resp => {
-      // console.log("yelpResp", resp)
-      if(resp.data["yelpRating"] && parseInt(resp.data["yelpRating"], 10) !== 0) {
-        this.setState(resp.data)
-      }
+    const platforms = ["yelp", "foursquare", "googleplaces", "zomato"]
+
+    platforms.forEach(platform => {
+      const platformResp = fetchRestaurantRating(this.props.restaurant.id, platform)
+      platformResp.then(resp => {
+        if(resp.data[`${platform}Rating`] && parseInt(resp.data[`${platform}Rating`], 10) !== 0) {
+          this.setState(resp.data)
+        }
+      })
     })
 
-    const foursquareResp = fetchRestaurantRating(this.props.restaurant.id, "foursquare")
-    foursquareResp.then(resp => {
-      // console.log("foursquareResp", resp)
-      if(resp.data["foursquareRating"] && parseInt(resp.data["foursquareRating"], 10) !== 0) {
-        this.setState(resp.data)
-      }
-    })
-
-    const googleplacesResp = fetchRestaurantRating(this.props.restaurant.id, "googleplaces")
-    googleplacesResp.then(resp => {
-      if(resp.data["googleplacesRating"] && parseInt(resp.data["googleplacesRating"], 10) !== 0) {
-        this.setState(resp.data)
-      }
-    })
-
-    const zomatoResp = fetchRestaurantRating(this.props.restaurant.id, "zomato")
-    zomatoResp.then(resp => {
-      if(resp.data["zomatoRating"] && parseInt(resp.data["zomatoRating"], 10) !== 0) {
-        this.setState(resp.data)
-      }
-    })
+    // const yelpResp = fetchRestaurantRating(this.props.restaurant.id, "yelp")
+    // yelpResp.then(resp => {
+    //   // console.log("yelpResp", resp)
+    //   if(resp.data["yelpRating"] && parseInt(resp.data["yelpRating"], 10) !== 0) {
+    //     this.setState(resp.data)
+    //   }
+    // })
+    //
+    // const foursquareResp = fetchRestaurantRating(this.props.restaurant.id, "foursquare")
+    // foursquareResp.then(resp => {
+    //   // console.log("foursquareResp", resp)
+    //   if(resp.data["foursquareRating"] && parseInt(resp.data["foursquareRating"], 10) !== 0) {
+    //     this.setState(resp.data)
+    //   }
+    // })
+    //
+    // const googleplacesResp = fetchRestaurantRating(this.props.restaurant.id, "googleplaces")
+    // googleplacesResp.then(resp => {
+    //   if(resp.data["googleplacesRating"] && parseInt(resp.data["googleplacesRating"], 10) !== 0) {
+    //     this.setState(resp.data)
+    //   }
+    // })
+    //
+    // const zomatoResp = fetchRestaurantRating(this.props.restaurant.id, "zomato")
+    // zomatoResp.then(resp => {
+    //   if(resp.data["zomatoRating"] && parseInt(resp.data["zomatoRating"], 10) !== 0) {
+    //     this.setState(resp.data)
+    //   }
+    // })
   }
 
   getGoogleStaticMapUrl = () => {
