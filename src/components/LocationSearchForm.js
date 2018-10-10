@@ -7,7 +7,7 @@ import { fetchAddLocation } from '../adapters/locationsAdapter'
 import { Form } from 'semantic-ui-react'
 import PlacesAutocomplete, {  geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
-class LocationSearchBar extends Component {
+class LocationSearchForm extends Component {
   state = {
     name: "",
     address: "",
@@ -63,13 +63,14 @@ class LocationSearchBar extends Component {
                   id="location-name"
                   value={this.state.name}
                   onChange={this.handleNameChange}
+                  placeholder="Home"
                 />
                 <Form.Input fluid
                   label="Address or Location"
                   size="big"
                   id="location-address"
                   {...getInputProps({
-                    placeholder: 'e.g. 123 River Water Way',
+                    placeholder: 'e.g. 123 River Water Street',
                     className: 'location-search-input',
                   })}
                 />
@@ -107,4 +108,4 @@ class LocationSearchBar extends Component {
   }
 }
 
-export default connect(null, {setLocation, getLocations})(LocationSearchBar)
+export default connect(null, {setLocation, getLocations})(LocationSearchForm)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import LocationSearchBar from './LocationSearchBar'
+import LocationSearchForm from './LocationSearchForm'
 
 import { Grid, Header, Dropdown, Modal, Icon } from 'semantic-ui-react'
 
@@ -10,10 +10,9 @@ export default class NewLocation extends Component {
   }
 
   render() {
-    console.log("NewLocation", this.props.openModal)
+    // console.log("NewLocation", this.props.openModal)
     return (
       <React.Fragment>
-
         <Modal open={this.props.openModal}>
           <Modal.Header>
             <Grid>
@@ -24,7 +23,7 @@ export default class NewLocation extends Component {
             </Grid>
           </Modal.Header>
           <Modal.Content>
-            <LocationSearchBar handleModalSubmit={this.props.handleModalSubmit} />
+            <LocationSearchForm handleModalSubmit={this.props.handleModalSubmit} />
           </Modal.Content>
         </Modal>
       </React.Fragment>

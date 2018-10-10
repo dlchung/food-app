@@ -64,6 +64,7 @@ class LocationDropdown extends Component {
           selected = true
         }
         return { text: location.name, value: location.address, icon: "building outline", active: selected}
+        // return <Dropdown.Item text={location.name} value={location.address} icon="building outline" active={selected} key={location.id} />
       })
     }
 
@@ -83,12 +84,14 @@ class LocationDropdown extends Component {
   render() {
     return (
       <React.Fragment>
-        <Dropdown fluid selection
+        <Dropdown button fluid labeled
           placeholder="Select a location"
+          className="icon"
           onChange={this.handleChange}
           selectOnBlur={false}
           options={this.renderOptions()}
           value={this.state.lastSelected}
+          icon="map pin"
         />
         <NewLocation handleModalSubmit={this.handleModalSubmit} newLocation={this.newLocation} openModal={this.state.openModal} />
       </React.Fragment>
