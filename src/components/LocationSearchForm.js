@@ -58,7 +58,7 @@ class LocationSearchForm extends Component {
             <div>
               <Form>
                 <Form.Input fluid
-                  label="Location Name"
+                  label="Location Label"
                   size="big"
                   id="location-name"
                   value={this.state.name}
@@ -66,7 +66,7 @@ class LocationSearchForm extends Component {
                   placeholder="Home"
                 />
                 <Form.Input fluid
-                  label="Address or Location"
+                  label="Address or Place"
                   size="big"
                   id="location-address"
                   {...getInputProps({
