@@ -19,3 +19,16 @@ html, body {
 .result-header {
   cursor: pointer;
 }
+
+.suggestion-item {
+  cursor: pointer;
+}
+
+.suggestion-item-active {
+  background: #eee;
+  cursor: pointer;
+}
+
+.suggestion-text {
+  color: #222;
+}

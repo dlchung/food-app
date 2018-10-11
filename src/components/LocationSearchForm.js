@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { setLocation, getLocations } from '../actions'
 import { fetchAddLocation } from '../adapters/locationsAdapter'
 
-import { Form } from 'semantic-ui-react'
+import { Form, Segment, Header, Message, List } from 'semantic-ui-react'
 import PlacesAutocomplete, {  geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class LocationSearchForm extends Component {
@@ -55,7 +55,7 @@ class LocationSearchForm extends Component {
         >
 
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-            <div>
+
               <Form>
                 <Form.Input fluid
                   label="Location Label"
@@ -65,6 +65,7 @@ class LocationSearchForm extends Component {
                   onChange={this.handleNameChange}
                   placeholder="Home"
                 />
+
                 <Form.Input fluid
                   label="Address or Place"
                   size="big"
@@ -75,32 +76,35 @@ class LocationSearchForm extends Component {
                   })}
                 />
 
-                {loading && <div>Loading...</div>}
 
-                {suggestions.map(suggestion => {
-                  const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item'
 
-                  // inline style for demonstration purpose
-                  const style = suggestion.active ? { backgroundColor: '#ccc', cursor: 'pointer' } : { backgroundColor: '#ddd', cursor: 'pointer' }
+                {loading && <Message color="blue" size="small">Loading...</Message>}
 
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
-                      })}
-                    >
-                      <span>{suggestion.description}</span>
-                    </div>
-                  );
-                })}
+                <List size="large">
+                  {suggestions.length > 0 ? <List.Header>Suggested locations:</List.Header> : null}
+                  {suggestions.map(suggestion => {
+                    const className = suggestion.active ? 'suggestion-item-active' : 'suggestion-item'
+                    // const style = suggestion.active ? { backgroundColor: '#ddd', cursor: 'pointer' } : { backgroundColor: '#efefef', cursor: 'pointer' }
+                    // const style = suggestion.active ? { cursor: 'pointer' } : { cursor: 'pointer' }
 
+                    return (
+                      <List.Item
+                        {...getSuggestionItemProps(suggestion, {
+                          className
+                        })}
+                      >
+                        <List.Icon name="map pin" color="red" />
+                        <List.Content><span class="suggestion-text">{suggestion.description}</span></List.Content>
+                      </List.Item>
+                    );
+
+                  })}
+
+                </List>
                 <Form.Button onClick={this.handleButtonClick}>Save</Form.Button>
               </Form>
 
-            </div>
           )}
-
 
         </PlacesAutocomplete>
       </React.Fragment>
