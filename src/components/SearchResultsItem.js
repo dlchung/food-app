@@ -6,8 +6,7 @@ import { Card, Icon } from 'semantic-ui-react'
 
 export default class SearchResultsItem extends Component {
   state = {
-    showDetails: false,
-    averageScore: 0
+    showDetails: false
   }
 
   handleClick = () => {

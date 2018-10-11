@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Card, Segment, Statistic } from 'semantic-ui-react'
 
 export default class SearchResultsItemRatings extends Component {
-  
+
   fivePointColor = (num) => {
     if(num !== "n/a") {
       const score = parseInt(num, 10)
@@ -55,25 +55,37 @@ export default class SearchResultsItemRatings extends Component {
   }
 
   render() {
+    const yelpRating = this.props.yelp.rating
+    const yelpUrl = this.props.yelp.url
+
+    const foursquareRating = this.props.foursquare.rating
+    const foursquareUrl = this.props.foursquare.url
+
+    const googleplacesRating = this.props.googleplaces.rating
+    const googleplacesUrl = this.props.googleplaces.url
+
+    const zomatoRating = this.props.zomato.rating
+    const zomatoUrl = this.props.zomato.url
+
     return (
       <React.Fragment>
         <Card.Description>
           <Segment basic textAlign="left">
-            <Statistic color={this.fivePointColor(this.props.yelpRating)} size={this.ratingSize(this.props.yelpRating)}>
+            <Statistic color={this.fivePointColor(yelpRating)} size={this.ratingSize(yelpRating)}>
               <Statistic.Label>{this.platformUrl("yelp", "Yelp")}</Statistic.Label>
-              <Statistic.Value>{this.props.yelpRating}</Statistic.Value>
+              <Statistic.Value>{yelpRating}</Statistic.Value>
             </Statistic>
-            <Statistic color={this.tenPointColor(this.props.foursquareRating)} size={this.ratingSize(this.props.foursquareRating)}>
+            <Statistic color={this.tenPointColor(foursquareRating)} size={this.ratingSize(foursquareRating)}>
               <Statistic.Label>{this.platformUrl("foursquare", "Foursquare")}</Statistic.Label>
-              <Statistic.Value>{this.props.foursquareRating}</Statistic.Value>
+              <Statistic.Value>{foursquareRating}</Statistic.Value>
             </Statistic>
-            <Statistic color={this.fivePointColor(this.props.googleplacesRating)} size={this.ratingSize(this.props.googleplacesRating)}>
+            <Statistic color={this.fivePointColor(googleplacesRating)} size={this.ratingSize(googleplacesRating)}>
               <Statistic.Label>{this.platformUrl("googleplaces", "Google")}</Statistic.Label>
-              <Statistic.Value>{this.props.googleplacesRating}</Statistic.Value>
+              <Statistic.Value>{googleplacesRating}</Statistic.Value>
             </Statistic>
-            <Statistic color={this.fivePointColor(this.props.zomatoRating)} size={this.ratingSize(this.props.zomatoRating)}>
+            <Statistic color={this.fivePointColor(zomatoRating)} size={this.ratingSize(zomatoRating)}>
               <Statistic.Label>{this.platformUrl("zomato", "Zomato")}</Statistic.Label>
-              <Statistic.Value>{this.props.zomatoRating}</Statistic.Value>
+              <Statistic.Value>{zomatoRating}</Statistic.Value>
             </Statistic>
           </Segment>
         </Card.Description>

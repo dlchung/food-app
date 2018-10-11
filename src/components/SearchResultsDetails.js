@@ -7,10 +7,22 @@ import { Card, Grid, Segment, Image } from 'semantic-ui-react'
 
 export default class SearchResultsDetails extends Component {
   state = {
-    yelpRating: "n/a",
-    foursquareRating: "n/a",
-    googleplacesRating: "n/a",
-    zomatoRating: "n/a",
+    yelp: {
+      rating: "n/a",
+      url: ""
+    },
+    foursquare: {
+      rating: "n/a",
+      url: ""
+    },
+    googleplaces: {
+      rating: "n/a",
+      url: ""
+    },
+    zomato: {
+      rating: "n/a",
+      url: ""
+    },
     averageScore: 0
   }
 
@@ -25,7 +37,13 @@ export default class SearchResultsDetails extends Component {
       const platformResp = fetchRestaurantRating(this.props.restaurant.id, platform)
       platformResp.then(resp => {
         if(resp.data[`${platform}Rating`] && parseInt(resp.data[`${platform}Rating`], 10) !== 0) {
-          this.setState(resp.data)
+          // this.setState(resp.data)
+          this.setState({
+            [`${platform}`]: {
+              rating: resp.data[`${platform}Rating`],
+              url: this.props.restaurant[`${platform}_url`]
+            }
+          })
         }
       })
     })
@@ -102,10 +120,10 @@ export default class SearchResultsDetails extends Component {
                 <Segment basic>
                   <SearchResultsItemRatings
                     restaurant={this.props.restaurant}
-                    yelpRating={this.state.yelpRating}
-                    foursquareRating={this.state.foursquareRating}
-                    googleplacesRating={this.state.googleplacesRating}
-                    zomatoRating={this.state.zomatoRating}
+                    yelp={this.state.yelp}
+                    foursquare={this.state.foursquare}
+                    googleplaces={this.state.googleplaces}
+                    zomato={this.state.zomato}
                   />
                 </Segment>
               </Grid.Column>
