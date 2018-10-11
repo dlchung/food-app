@@ -63,11 +63,12 @@ export const setCurrentLocation = (latLng) => {
   }
 }
 
-export const setKeywords = (keyword) => {
+export const setKeywords = (keyword, allowResults = true) => {
   return {
     type: "SET_KEYWORDS",
     payload: {
-      keyword
+      keyword,
+      allowResults
     }
   }
 }
@@ -82,14 +83,14 @@ export const setKeywords = (keyword) => {
 //   }
 // }
 
-// export const allowGetResults = (getResults) => {
-//   return {
-//     type: "ALLOW_GET_RESULTS",
-//     payload: {
-//       getResults
-//     }
-//   }
-// }
+export const setAllowResults = (allowResults) => {
+  return {
+    type: "ALLOW_RESULTS",
+    payload: {
+      allowResults
+    }
+  }
+}
 
 const isFetching = (isFetching) => {
   // console.log("isFetching action", isFetching)

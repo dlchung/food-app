@@ -55,18 +55,11 @@ export default class SearchResultsItemRatings extends Component {
   }
 
   render() {
-    console.log("SearchResultsItemRatings", this.props)
+    // console.log("SearchResultsItemRatings", this.props)
     const yelpRating = this.props.yelp.rating
-    const yelpUrl = this.props.yelp.url
-
     const foursquareRating = this.props.foursquare.rating
-    const foursquareUrl = this.props.foursquare.url
-
     const googleplacesRating = this.props.googleplaces.rating
-    const googleplacesUrl = this.props.googleplaces.url
-
     const zomatoRating = this.props.zomato.rating
-    const zomatoUrl = this.props.zomato.url
 
     return (
       <React.Fragment>

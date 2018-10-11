@@ -72,7 +72,7 @@ class LocationDropdown extends Component {
     locations.push({ text: "Add Location", value: "add_location", icon: "plus" })
 
 
-    console.log("renderOptions", locations)
+    // console.log("renderOptions", locations)
     return locations
   }
 
@@ -91,7 +91,7 @@ class LocationDropdown extends Component {
           selectOnBlur={false}
           options={this.renderOptions()}
           value={this.state.lastSelected}
-          icon="map pin"
+          icon="angle down"
         />
         <NewLocation handleModalSubmit={this.handleModalSubmit} newLocation={this.newLocation} openModal={this.state.openModal} />
       </React.Fragment>

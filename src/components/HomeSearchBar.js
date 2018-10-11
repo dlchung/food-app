@@ -18,7 +18,7 @@ class HomeSearchBar extends Component {
 
   handleSubmit = (e) => {
     // console.log("submitted", this.state.keyword)
-    this.props.setKeywords(this.state.keyword)
+    this.props.setKeywords(this.state.keyword, true)
     // this.props.clearRestaurants()
     // console.log(this.props.history)
     if(this.props.history.location.pathname !== "/search") {

@@ -31,14 +31,15 @@ const reducer = (state = initialState, action) => {
     case "SET_KEYWORDS":
       return {
         ...state,
-        keyword: action.payload.keyword
+        keyword: action.payload.keyword,
+        allowResults: action.payload.allowResults
       }
-    //
-    // case "ALLOW_GET_RESULTS":
-    //   return {
-    //     ...state,
-    //     getResults: action.payload.getResults
-    //   }
+
+    case "ALLOW_RESULTS":
+      return {
+        ...state,
+        allowResults: action.payload.allowResults
+      }
 
     case "GET_LOCATIONS":
       return {
