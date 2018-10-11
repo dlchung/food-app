@@ -36,15 +36,21 @@ export default class SearchResultsDetails extends Component {
     platforms.forEach(platform => {
       const platformResp = fetchRestaurantRating(this.props.restaurant.id, platform)
       platformResp.then(resp => {
-        if(resp.data[`${platform}Rating`] && parseInt(resp.data[`${platform}Rating`], 10) !== 0) {
-          // this.setState(resp.data)
-          this.setState({
-            [`${platform}`]: {
-              rating: resp.data[`${platform}Rating`],
-              url: this.props.restaurant[`${platform}_url`]
-            }
-          })
+        // if(resp.data[`${platform}Rating`] && parseInt(resp.data[`${platform}Rating`], 10) !== 0) {
+        let rating = this.state[`${platform}`].rating
+        let url
+
+        if(resp.data[`${platform}`]) {
+          if(parseInt(resp.data[`${platform}`]["rating"], 10) !== 0) {
+            rating = resp.data[`${platform}`]["rating"]
+          }
+          if(resp.data[`${platform}`]["url"]) {
+            url = resp.data[`${platform}`]["url"]
+          }
         }
+
+        this.setState({ [`${platform}`]: { rating, url } })
+
       })
     })
   }

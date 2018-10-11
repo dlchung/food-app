@@ -46,8 +46,8 @@ export default class SearchResultsItemRatings extends Component {
   }
 
   platformUrl = (platform, text) => {
-    if(this.props.restaurant[`${platform}_url`]) {
-      return (<a href={this.props.restaurant[`${platform}_url`]} target="_blank">{text}</a>)
+    if(this.props[`${platform}`].url) {
+      return (<a href={this.props[`${platform}`].url} target="_blank">{text}</a>)
     }
     else {
       return text
@@ -55,6 +55,7 @@ export default class SearchResultsItemRatings extends Component {
   }
 
   render() {
+    console.log("SearchResultsItemRatings", this.props)
     const yelpRating = this.props.yelp.rating
     const yelpUrl = this.props.yelp.url
 
