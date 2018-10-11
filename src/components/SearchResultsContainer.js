@@ -16,11 +16,11 @@ class SearchResultsContainer extends Component {
   componentDidMount() {
     // console.log(this.props.latLng)
     this.createResults()
-    console.log("componentDidMount", this.props)
+    // console.log("componentDidMount", this.props)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate", this.props, prevProps)
+    // console.log("componentDidUpdate", this.props, prevProps)
     // if(this.props.allowResults === true) {
     //   if(this.props.latLng !== prevProps.latLng) {
     //       console.log("different")
