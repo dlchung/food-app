@@ -33,7 +33,7 @@ class GeoLocate extends Component {
           null
           : <Message floating compact info size="small">
               <Message.Content>
-                <Icon name="sync" loading />Getting your location data&hellip;
+                <Icon name="sync alternate" loading />Getting your location data&hellip;
               </Message.Content>
             </Message>
   }

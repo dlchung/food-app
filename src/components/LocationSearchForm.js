@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { setLocation, getLocations } from '../actions'
 import { fetchAddLocation } from '../adapters/locationsAdapter'
 
-import { Form, Segment, Header, Message, List } from 'semantic-ui-react'
+import { Form, List } from 'semantic-ui-react'
 import PlacesAutocomplete, {  geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 class LocationSearchForm extends Component {
@@ -74,18 +74,15 @@ class LocationSearchForm extends Component {
                     placeholder: 'e.g. 123 River Water Street',
                     className: 'location-search-input',
                   })}
+                  icon={loading ? {name: "sync alternate", loading: true, color: "grey"} : null}
                 />
 
-
-
-                {loading && <Message color="blue" size="small">Loading...</Message>}
+                {/* {loading && <Message size="small">Loading...</Message>} */}
 
                 <List size="large">
                   {suggestions.length > 0 ? <List.Header>Suggested locations:</List.Header> : null}
                   {suggestions.map(suggestion => {
                     const className = suggestion.active ? 'suggestion-item-active' : 'suggestion-item'
-                    // const style = suggestion.active ? { backgroundColor: '#ddd', cursor: 'pointer' } : { backgroundColor: '#efefef', cursor: 'pointer' }
-                    // const style = suggestion.active ? { cursor: 'pointer' } : { cursor: 'pointer' }
 
                     return (
                       <List.Item
@@ -94,7 +91,7 @@ class LocationSearchForm extends Component {
                         })}
                       >
                         <List.Icon name="map pin" color="red" />
-                        <List.Content><span class="suggestion-text">{suggestion.description}</span></List.Content>
+                        <List.Content><span className="suggestion-text">{suggestion.description}</span></List.Content>
                       </List.Item>
                     );
 
