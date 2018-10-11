@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 import { Card, Segment, Statistic } from 'semantic-ui-react'
 
 export default class SearchResultsItemRatings extends Component {
-  componentDidMount() {}
-
+  
   fivePointColor = (num) => {
     if(num !== "n/a") {
       const score = parseInt(num, 10)

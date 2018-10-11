@@ -29,7 +29,7 @@ export default class SearchResultsItem extends Component {
             <Card.Content>
               <Card.Header onClick={this.handleClick} className="result-header">
                 <p>
-                  {this.state.showDetails ? <Icon name="angle double down" /> : <Icon name="angle double right" />}
+                  {this.state.showDetails ? <Icon name="angle double down" color="red" /> : <Icon name="angle double right" color="red" />}
                   {this.props.restaurant.name}
                 </p>
                 <p className="result-description">
