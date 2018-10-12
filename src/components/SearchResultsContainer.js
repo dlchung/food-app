@@ -75,7 +75,7 @@ class SearchResultsContainer extends Component {
           <Loader content="Loading..." />
         </Dimmer>
 
-        <Header size="medium" color="grey">Showing top {this.props.restaurants.length} results...</Header>
+        <Header size="medium" color="grey">Showing top {this.props.restaurants.length} results ranked by distance...</Header>
         {this.props.restaurants.length > 0 ? this.renderResults(this.props.restaurants) : null}
       </React.Fragment>
     )

@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 
+import { connect } from 'react-redux'
+
 import { Card, Segment, Statistic } from 'semantic-ui-react'
 
-export default class SearchResultsItemRatings extends Component {
+class SearchResultsItemRatings extends Component {
 
+  // coloring system for 5 point scale
   fivePointColor = (num) => {
     if(num !== "n/a") {
       const score = parseInt(num, 10)
@@ -20,6 +23,7 @@ export default class SearchResultsItemRatings extends Component {
     }
   }
 
+  // coloring system for 10 point scale
   tenPointColor = (num) => {
     if(num !== "n/a") {
       const score = parseInt(num, 10)
@@ -36,6 +40,7 @@ export default class SearchResultsItemRatings extends Component {
     }
   }
 
+  // adjust size for text vs number
   ratingSize = (score) => {
     if(score === "n/a") {
       return "tiny"
@@ -45,6 +50,7 @@ export default class SearchResultsItemRatings extends Component {
     }
   }
 
+  // create link for url if it exists
   platformUrl = (platform, text) => {
     if(this.props[`${platform}`].url) {
       return (<a href={this.props[`${platform}`].url} target="_blank">{text}</a>)
@@ -54,36 +60,40 @@ export default class SearchResultsItemRatings extends Component {
     }
   }
 
-  render() {
-    // console.log("SearchResultsItemRatings", this.props)
-    const yelpRating = this.props.yelp.rating
-    const foursquareRating = this.props.foursquare.rating
-    const googleplacesRating = this.props.googleplaces.rating
-    const zomatoRating = this.props.zomato.rating
+  // render ratings based on existing platforms in redux store
+  renderRatings = () => {
+    // props.platforms has is nested object
+    const platforms = Object.keys(this.props.platforms)
 
+    return platforms.map(platform => { // iterate through array of keys from props object
+      const p = this.props.platforms[platform]
+      return (
+          <Statistic color={this.fivePointColor(this.props[platform].rating)} size={this.ratingSize(this.props[platform].rating)} key={p.slug}>
+            <Statistic.Label>{this.platformUrl(p.slug, p.label)}</Statistic.Label>
+            <Statistic.Value>{this.props[platform].rating}</Statistic.Value>
+            <Statistic.Value text>{this.props[platform].rating > 0 ? `/ ${p.maxScore}` : null}</Statistic.Value>
+          </Statistic>
+        )
+    })
+  }
+
+  render() {
     return (
       <React.Fragment>
         <Card.Description>
           <Segment basic textAlign="left">
-            <Statistic color={this.fivePointColor(yelpRating)} size={this.ratingSize(yelpRating)}>
-              <Statistic.Label>{this.platformUrl("yelp", "Yelp")}</Statistic.Label>
-              <Statistic.Value>{yelpRating}</Statistic.Value>
-            </Statistic>
-            <Statistic color={this.tenPointColor(foursquareRating)} size={this.ratingSize(foursquareRating)}>
-              <Statistic.Label>{this.platformUrl("foursquare", "Foursquare")}</Statistic.Label>
-              <Statistic.Value>{foursquareRating}</Statistic.Value>
-            </Statistic>
-            <Statistic color={this.fivePointColor(googleplacesRating)} size={this.ratingSize(googleplacesRating)}>
-              <Statistic.Label>{this.platformUrl("googleplaces", "Google")}</Statistic.Label>
-              <Statistic.Value>{googleplacesRating}</Statistic.Value>
-            </Statistic>
-            <Statistic color={this.fivePointColor(zomatoRating)} size={this.ratingSize(zomatoRating)}>
-              <Statistic.Label>{this.platformUrl("zomato", "Zomato")}</Statistic.Label>
-              <Statistic.Value>{zomatoRating}</Statistic.Value>
-            </Statistic>
+            {this.renderRatings()}
           </Segment>
         </Card.Description>
       </React.Fragment>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    platforms: state.platforms
+  }
+}
+
+export default connect(mapStateToProps)(SearchResultsItemRatings)

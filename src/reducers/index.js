@@ -1,6 +1,28 @@
 const initialState = {
   restaurants: [],
-  isFetching: true
+  isFetching: true,
+  platforms: {
+    yelp: {
+      slug: "yelp",
+      label: "Yelp",
+      maxScore: "5"
+    },
+    foursquare: {
+      slug: "foursquare",
+      label: "Foursquare",
+      maxScore: "10"
+    },
+    googleplaces: {
+      slug: "googleplaces",
+      label: "Google",
+      maxScore: "5"
+    },
+    zomato: {
+      slug: "zomato",
+      label: "Zomato",
+      maxScore: "5"
+    }
+  }
 }
 
 const reducer = (state = initialState, action) => {
