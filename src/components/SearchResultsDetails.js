@@ -1,29 +1,28 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { fetchRestaurantRating } from '../adapters/restaurantsAdapter'
 import SearchResultsItemRatings from './SearchResultsItemRatings'
 
 import { Card, Grid, Segment, Image } from 'semantic-ui-react'
 
-export default class SearchResultsDetails extends Component {
-  state = {
-    yelp: {
-      rating: "n/a",
-      url: ""
-    },
-    foursquare: {
-      rating: "n/a",
-      url: ""
-    },
-    googleplaces: {
-      rating: "n/a",
-      url: ""
-    },
-    zomato: {
-      rating: "n/a",
-      url: ""
-    },
-    averageScore: 0
+class SearchResultsDetails extends Component {
+  constructor(props) {
+    super(props)
+
+    // lets create a dynamic initial state based on platforms in store
+    let initialState = {}
+    Object.keys(this.props.platforms).map(platform => {
+      const newSet = {
+        [platform]: {
+          rating: "n/a",
+          url: ""
+        }
+      }
+      initialState = {...initialState, ...newSet}
+    })
+
+    this.state = {...initialState}
   }
 
   componentDidMount() {
@@ -31,13 +30,12 @@ export default class SearchResultsDetails extends Component {
   }
 
   getRatings = () => {
-    const platforms = ["yelp", "foursquare", "googleplaces", "zomato"]
+    const platforms = Object.keys(this.props.platforms)
 
     platforms.forEach(platform => {
       const platformResp = fetchRestaurantRating(this.props.restaurant.id, platform)
       platformResp.then(resp => {
-        // if(resp.data[`${platform}Rating`] && parseInt(resp.data[`${platform}Rating`], 10) !== 0) {
-        let rating = this.state[`${platform}`].rating
+        let rating = "n/a"
         let url
 
         if(resp.data[`${platform}`]) {
@@ -150,3 +148,11 @@ export default class SearchResultsDetails extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    platforms: state.platforms
+  }
+}
+
+export default connect(mapStateToProps)(SearchResultsDetails)
