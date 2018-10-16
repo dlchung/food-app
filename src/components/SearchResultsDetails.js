@@ -54,8 +54,16 @@ class SearchResultsDetails extends Component {
   }
 
   getGoogleStaticMapUrl = () => {
-    const restaurantMarker = `color:red|label:B|${this.props.restaurant.lat},${this.props.restaurant.lng}`
-    const currentLocationMarker = `color:green|label:A|${this.props.latLng.lat},${this.props.latLng.lng}`
+    let restaurantMarker = ''
+    let currentLocationMarker = ''
+
+    if(this.props.latLng) {
+      restaurantMarker = `color:red|label:B|${this.props.restaurant.lat},${this.props.restaurant.lng}`
+      currentLocationMarker = `color:green|label:A|${this.props.latLng.lat},${this.props.latLng.lng}`
+    } else {
+      restaurantMarker = `color:red|${this.props.restaurant.lat},${this.props.restaurant.lng}`
+    }
+
     // const zoom = "14"
     const size = "500x250"
     const format = "jpg"
