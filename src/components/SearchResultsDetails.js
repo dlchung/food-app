@@ -29,6 +29,8 @@ class SearchResultsDetails extends Component {
     this.getRatings()
   }
 
+  // gets ratings for each platform
+  // platforms are provided by redux store
   getRatings = () => {
     // need only keys/slugs for platforms
     const platforms = Object.keys(this.props.platforms)
@@ -54,6 +56,7 @@ class SearchResultsDetails extends Component {
     })
   }
 
+  // returns google static map url as string
   getGoogleStaticMapUrl = () => {
     let restaurantMarker = ''
     let currentLocationMarker = ''

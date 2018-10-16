@@ -17,28 +17,17 @@ class LocationDropdown extends Component {
 
   componentDidMount() {
     this.props.getLocations()
-    // console.log("componentDidMount", this.props)
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    // console.log("UPDATE", this.props.locations)
   }
 
   handleChange = (event, data) => {
-    if(data.value === "add_location") {
-      // console.log("add_location", data)
+    if(data.value === "add_location") { // open new location modal if add location is selected
       this.newLocation()
-    } else if(data.value === "current_location") {
-      // console.log("current_location", data)
-      // const coords = data.value.split(",")
-      // const latlng = { lat: parseFloat(coords[0]), lng: parseFloat(coords[1]) }
+    } else if(data.value === "current_location") { // reset to current location
       this.props.setLocation(this.props.currentLocation)
-    } else {
-      // console.log(event, data)
+    } else { // set location to selected value
       geocodeByAddress(data.value)
         .then(resp => {
           getLatLng(resp[0]).then(latLng => {
-            // console.log("else", latLng)
             this.props.setLocation(latLng)
           })
         })
@@ -47,14 +36,11 @@ class LocationDropdown extends Component {
     this.setState({ lastSelected: data.value })
   }
 
-  // handleClose = () => {
-  //   this.setState({ openModal: false })
-  // }
-
   newLocation = () => {
     this.setState({ openModal: !this.state.openModal }, () => { console.log(this.state) })
   }
 
+  // render options for locations dropdown
   renderOptions = () => {
     let locations = []
     if(this.props.locations) {
@@ -71,8 +57,6 @@ class LocationDropdown extends Component {
     locations.unshift({ text: "Current Location", value: "current_location", icon: "location arrow" })
     locations.push({ text: "Add Location", value: "add_location", icon: "plus" })
 
-
-    // console.log("renderOptions", locations)
     return locations
   }
 
