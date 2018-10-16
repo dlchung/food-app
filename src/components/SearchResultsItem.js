@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import SearchResultsDetails from './SearchResultsDetails'
 
-import { Card, Icon } from 'semantic-ui-react'
+import { Card, Icon, Grid } from 'semantic-ui-react'
 
 export default class SearchResultsItem extends Component {
   state = {
@@ -24,16 +24,24 @@ export default class SearchResultsItem extends Component {
     return (
       <React.Fragment>
         <Card.Group>
-          <Card fluid>
+          <Card fluid color={this.state.showDetails ? "red" : "grey"}>
             <Card.Content>
               <Card.Header onClick={this.handleClick} className="result-header">
-                <p>
-                  {this.state.showDetails ? <Icon name="angle double down" color="red" /> : <Icon name="angle double right" color="red" />}
-                  {this.props.restaurant.name}
-                </p>
-                <p className="result-description">
-                  {address}, {address2}
-                </p>
+                <Grid>
+                  <Grid.Row>
+                    <Grid.Column width={15}>
+                      <p>
+                        {this.props.restaurant.name}
+                      </p>
+                      <p className="result-description">
+                        {address}, {address2}
+                      </p>
+                    </Grid.Column>
+                    <Grid.Column>
+                      {this.state.showDetails ? <Icon name="chevron up" color="red" /> : <Icon name="chevron down" color="grey" />}
+                    </Grid.Column>
+                  </Grid.Row>
+                </Grid>
               </Card.Header>
             </Card.Content>
             { this.state.showDetails ? this.showDetails() : null }
