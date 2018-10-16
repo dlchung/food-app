@@ -54,7 +54,7 @@ class SearchResultsDetails extends Component {
   }
 
   getGoogleStaticMapUrl = () => {
-    const markers = `${this.props.restaurant.google_lat},${this.props.restaurant.google_lng}`
+    const markers = `${this.props.restaurant.lat},${this.props.restaurant.lng}`
     const zoom = "14"
     const size = "500x250"
     const format = "jpg"
@@ -136,7 +136,7 @@ class SearchResultsDetails extends Component {
                   <Image bordered rounded
                     src={this.getGoogleStaticMapUrl()}
                     as="a"
-                    href={this.props.restaurant.googleplaces_url}
+                    href={this.state.googleplaces.url}
                     target="_blank"
                   />
                 </Segment>
