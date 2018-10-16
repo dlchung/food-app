@@ -54,14 +54,16 @@ class SearchResultsDetails extends Component {
   }
 
   getGoogleStaticMapUrl = () => {
-    const markers = `${this.props.restaurant.lat},${this.props.restaurant.lng}`
-    const zoom = "14"
+    const restaurantMarker = `color:red|label:B|${this.props.restaurant.lat},${this.props.restaurant.lng}`
+    const currentLocationMarker = `color:green|label:A|${this.props.latLng.lat},${this.props.latLng.lng}`
+    // const zoom = "14"
     const size = "500x250"
     const format = "jpg"
     const mapType = "roadmap"
     const GOOGLE_PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY
 
-    const googleStaticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=${markers}&zoom=${zoom}&size=${size}&format=${format}&maptype=${mapType}&key=${GOOGLE_PLACES_API_KEY}`
+    // const googleStaticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=${restaurantMarker}&markers=${currentLocationMarker}&zoom=${zoom}&size=${size}&format=${format}&maptype=${mapType}&key=${GOOGLE_PLACES_API_KEY}`
+    const googleStaticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=${restaurantMarker}&markers=${currentLocationMarker}&size=${size}&format=${format}&maptype=${mapType}&key=${GOOGLE_PLACES_API_KEY}`
 
     return googleStaticMapUrl
   }
@@ -151,7 +153,8 @@ class SearchResultsDetails extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    platforms: state.platforms
+    platforms: state.platforms,
+    latLng: state.latLng
   }
 }
 
