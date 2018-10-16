@@ -10,7 +10,6 @@ export default class NewLocation extends Component {
   }
 
   render() {
-    // console.log("NewLocation", this.props.openModal)
     return (
       <React.Fragment>
         <Modal open={this.props.openModal}>

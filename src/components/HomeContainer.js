@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 
-// import HomeSearchBar from './HomeSearchBar'
-// import NavAvatar from './NavAvatar'
-
 import { Container, Grid, Divider } from 'semantic-ui-react'
 
 export default class HomeContainer extends Component {

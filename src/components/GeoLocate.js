@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import { geolocated } from 'react-geolocated'
 
 import { Message, Icon } from 'semantic-ui-react'

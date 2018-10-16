@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
 import { fetchRestaurantRating } from '../adapters/restaurantsAdapter'
+
 import SearchResultsItemRatings from './SearchResultsItemRatings'
 
 import { Card, Grid, Segment, Image } from 'semantic-ui-react'

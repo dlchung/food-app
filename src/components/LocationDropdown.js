@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-
 import { setLocation, getLocations } from '../actions'
 
 import NewLocation from './NewLocation'

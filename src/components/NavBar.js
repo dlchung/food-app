@@ -7,7 +7,6 @@ import { Grid, Header, Icon } from 'semantic-ui-react'
 export default class NavBar extends Component {
 
   render() {
-    // console.log("rendering", this.props.locations)
     return (
       <React.Fragment>
         <Grid centered>

@@ -25,8 +25,7 @@ class LocationSearchForm extends Component {
     this.setState({ address })
   }
 
-  handleButtonClick = (e) => {
-    // console.log(this.state.address)
+  handleButtonClick = (e) => { // handle submit button
     geocodeByAddress(this.state.address) // geocode using the address
       .then(results => {
         getLatLng(results[0]).then(latLng => { // use first result to get latitude and longitude
@@ -34,10 +33,8 @@ class LocationSearchForm extends Component {
         })
       })
 
-    // console.log(this.state.name, this.state.address)
     fetchAddLocation(this.state.name, this.state.address)
       .then(resp => {
-        // console.log("fetchAddLocation", resp)
         this.props.getLocations()
         this.props.handleModalSubmit(resp.data.address)
       })

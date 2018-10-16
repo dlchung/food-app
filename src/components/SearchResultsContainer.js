@@ -1,48 +1,23 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { getAllRestaurants, getNearbyRestaurants, setAllowResults } from '../actions'
 
 import SearchResultsItem from './SearchResultsItem'
-
-import { connect } from 'react-redux'
-
-import { getAllRestaurants, getNearbyRestaurants, setAllowResults } from '../actions'
 
 import { Loader, Dimmer, Header } from 'semantic-ui-react'
 
 class SearchResultsContainer extends Component {
-  // state = {
-  //   getResults: this.props.getResults,
-  // }
 
   componentDidMount() {
-    // console.log(this.props.latLng)
     this.createResults()
-    // console.log("componentDidMount", this.props)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log("componentDidUpdate", this.props, prevProps)
-    // if(this.props.allowResults === true) {
-    //   if(this.props.latLng !== prevProps.latLng) {
-    //       console.log("different")
-    //       // this.setState({ getResults: false }, () => console.log("triggered"))
-    //       this.props.setAllowResults(false)
-    //       this.createResults()
-    //   }
-    // }
-
     if(this.props.keyword !== prevProps.keyword || this.props.allowResults === true) {
       console.log("different")
       this.props.setAllowResults(false)
       this.createResults()
     }
-
-    // if(this.props.latlng != prevProps.latLng) {
-    //   if(this.props.keyword !== prevProps.keyword) {
-    //     console.log("different")
-    //     // this.setState({ loading: true })
-    //     this.createResults()
-    //   }
-    // }
   }
 
   createResults = () => {
@@ -50,15 +25,10 @@ class SearchResultsContainer extends Component {
     const keyword = this.props.keyword
 
     if(latLng && keyword) {
-      // console.log("getNearbyRestaurants")
       this.props.getNearbyRestaurants(latLng, keyword)
     } else {
-      // console.log("getAllRestaurants")
       this.props.getAllRestaurants()
     }
-
-    // this.setState({ loading: false })
-    // this.props.setSearchLoading(false)
   }
 
   renderResults = (restaurants) => {
@@ -68,7 +38,6 @@ class SearchResultsContainer extends Component {
   }
 
   render() {
-    // console.log("render", this.props)
     return (
       <React.Fragment>
         <Dimmer active={this.props.isFetching ? true : false}>

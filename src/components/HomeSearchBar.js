@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-
 import { connect } from 'react-redux'
 import { setKeywords, clearRestaurants } from '../actions'
-
 import { withRouter } from 'react-router'
 
 import { Form, Icon } from 'semantic-ui-react'
