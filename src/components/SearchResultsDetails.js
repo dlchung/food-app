@@ -12,7 +12,7 @@ class SearchResultsDetails extends Component {
 
     // lets create a dynamic initial state based on platforms in store
     let initialState = {}
-    Object.keys(this.props.platforms).map(platform => {
+    Object.keys(this.props.platforms).forEach(platform => {
       const newSet = {
         [platform]: {
           rating: "n/a",
@@ -30,20 +30,21 @@ class SearchResultsDetails extends Component {
   }
 
   getRatings = () => {
+    // need only keys/slugs for platforms
     const platforms = Object.keys(this.props.platforms)
 
     platforms.forEach(platform => {
       const platformResp = fetchRestaurantRating(this.props.restaurant.id, platform)
       platformResp.then(resp => {
-        let rating = "n/a"
+        let rating = this.state[`${platform}`].rating
         let url
 
         if(resp.data[`${platform}`]) {
-          if(parseInt(resp.data[`${platform}`]["rating"], 10) !== 0) {
-            rating = resp.data[`${platform}`]["rating"]
+          if(parseInt(resp.data[`${platform}`].rating, 10) !== 0) {
+            rating = resp.data[`${platform}`].rating
           }
-          if(resp.data[`${platform}`]["url"]) {
-            url = resp.data[`${platform}`]["url"]
+          if(resp.data[`${platform}`].url) {
+            url = resp.data[`${platform}`].url
           }
         }
 
