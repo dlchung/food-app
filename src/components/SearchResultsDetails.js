@@ -56,7 +56,7 @@ class SearchResultsDetails extends Component {
     })
   }
 
-  // returns google static map url as string
+  // returns static map url as string
   getStaticMapUrl = () => {
     // let restaurantMarker = ''
     // let currentLocationMarker = ''
@@ -77,19 +77,20 @@ class SearchResultsDetails extends Component {
     // const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=${restaurantMarker}&markers=${currentLocationMarker}&zoom=${zoom}&size=${size}&format=${format}&maptype=${mapType}&key=${GOOGLE_PLACES_API_KEY}`
     // const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=${restaurantMarker}&markers=${currentLocationMarker}&size=${size}&format=${format}&maptype=${mapType}&key=${GOOGLE_PLACES_API_KEY}`
 
+    // HERE MAPS API
     const HERE_APP_ID = process.env.REACT_APP_HERE_APP_ID
     const HERE_APP_CODE = process.env.REACT_APP_HERE_APP_CODE
     const width = "500"
     const height = "300"
-    const poilbl = "1"
-    const poithm = "1"
-    const poitxs = "15"
-    const z = ""
-    const markerStartParams = "green;;;Start"
+    const poilbl = "1" // marker label type i.e. 0=numeric 1=alpha
+    const poithm = "1" // marker theme
+    const poitxs = "15" // marker text size
+    const z = "" // zoom level
+    const markerStartParams = "green;;;Start" // marker params - fillColor;textColor;textFontSize;customText
     const markerEndParams = "red;;;End"
     let currentLocationLatLng
-    const restaurantLatLng = `${this.props.restaurant.lat},${this.props.restaurant.lng}`
-    let resource
+    const restaurantLatLng = `${this.props.restaurant.lat},${this.props.restaurant.lng}` // lat,lng
+    let resource // api resource
 
     if(this.props.latLng) {
       currentLocationLatLng = `${this.props.latLng.lat},${this.props.latLng.lng}`
