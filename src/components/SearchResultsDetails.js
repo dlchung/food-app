@@ -84,10 +84,10 @@ class SearchResultsDetails extends Component {
     const height = "300"
     const poilbl = "1" // marker label type i.e. 0=numeric 1=alpha
     const poithm = "1" // marker theme
-    const poitxs = "15" // marker text size
+    const poitxs = "25" // marker text size
     const z = "" // zoom level
-    const markerStartParams = "green;;;Start" // marker params - fillColor;textColor;textFontSize;customText
-    const markerEndParams = "red;;;End"
+    const markerStartParams = "green;;;" // marker params - fillColor;textColor;textFontSize;customText
+    const markerEndParams = "red;;;"
     let currentLocationLatLng
     const restaurantLatLng = `${this.props.restaurant.lat},${this.props.restaurant.lng}` // lat,lng
     let resource // api resource
