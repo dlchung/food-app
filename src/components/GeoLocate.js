@@ -19,12 +19,12 @@ class GeoLocate extends Component {
   render() {
     return !this.props.isGeolocationAvailable
       ? <Message floating compact info size="small">
-          <Message.Content>Your browser does not support Geolocation</Message.Content>
+          <Message.Content>Your browser does not support geolocation</Message.Content>
         </Message>
       : !this.props.isGeolocationEnabled
         ? <Message floating compact info size="small">
             <Message.Content>
-              Geolocation is not enabled
+              Could not find your location.
             </Message.Content>
           </Message>
         : this.props.coords
