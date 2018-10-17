@@ -57,27 +57,48 @@ class SearchResultsDetails extends Component {
   }
 
   // returns google static map url as string
-  getGoogleStaticMapUrl = () => {
-    let restaurantMarker = ''
-    let currentLocationMarker = ''
-
-    if(this.props.latLng) {
-      restaurantMarker = `color:red|label:B|${this.props.restaurant.lat},${this.props.restaurant.lng}`
-      currentLocationMarker = `color:green|label:A|${this.props.latLng.lat},${this.props.latLng.lng}`
-    } else {
-      restaurantMarker = `color:red|${this.props.restaurant.lat},${this.props.restaurant.lng}`
-    }
+  getStaticMapUrl = () => {
+    // let restaurantMarker = ''
+    // let currentLocationMarker = ''
+    //
+    // if(this.props.latLng) {
+    //   restaurantMarker = `color:red|label:B|${this.props.restaurant.lat},${this.props.restaurant.lng}`
+    //   currentLocationMarker = `color:green|label:A|${this.props.latLng.lat},${this.props.latLng.lng}`
+    // } else {
+    //   restaurantMarker = `color:red|${this.props.restaurant.lat},${this.props.restaurant.lng}`
+    // }
 
     // const zoom = "14"
-    const size = "500x250"
-    const format = "jpg"
-    const mapType = "roadmap"
-    const GOOGLE_PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY
+    // const size = "500x250"
+    // const format = "jpg"
+    // const mapType = "roadmap"
+    // const GOOGLE_PLACES_API_KEY = process.env.REACT_APP_GOOGLE_PLACES_API_KEY
 
-    // const googleStaticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=${restaurantMarker}&markers=${currentLocationMarker}&zoom=${zoom}&size=${size}&format=${format}&maptype=${mapType}&key=${GOOGLE_PLACES_API_KEY}`
-    const googleStaticMapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=${restaurantMarker}&markers=${currentLocationMarker}&size=${size}&format=${format}&maptype=${mapType}&key=${GOOGLE_PLACES_API_KEY}`
+    // const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=${restaurantMarker}&markers=${currentLocationMarker}&zoom=${zoom}&size=${size}&format=${format}&maptype=${mapType}&key=${GOOGLE_PLACES_API_KEY}`
+    // const mapUrl = `https://maps.googleapis.com/maps/api/staticmap?markers=${restaurantMarker}&markers=${currentLocationMarker}&size=${size}&format=${format}&maptype=${mapType}&key=${GOOGLE_PLACES_API_KEY}`
 
-    return googleStaticMapUrl
+    const HERE_APP_ID = process.env.REACT_APP_HERE_APP_ID
+    const HERE_APP_CODE = process.env.REACT_APP_HERE_APP_CODE
+    const width = "500"
+    const height = "250"
+    const poilbl = "1"
+    const poithm = "1"
+    let currentLocationLatLng
+    let restaurantLatLng
+    let resource
+
+    if(this.props.latLng) {
+      currentLocationLatLng = `${this.props.latLng.lat},${this.props.latLng.lng}`
+      restaurantLatLng = `${this.props.restaurant.lat},${this.props.restaurant.lng}`
+      resource = "routing"
+    } else {
+      restaurantLatLng = `${this.props.restaurant.lat},${this.props.restaurant.lng}`
+      resource = "route"
+    }
+
+    const mapUrl = `https://image.maps.api.here.com/mia/1.6/${resource}?app_id=${HERE_APP_ID}&app_code=${HERE_APP_CODE}&h=${height}&w=${width}&poix0=${currentLocationLatLng}&poix1=${restaurantLatLng}&waypoint0=${currentLocationLatLng}&waypoint1=${restaurantLatLng}&poilbl=${poilbl}&poithm=${poithm}`
+
+    return mapUrl
   }
 
   // getAverageScore = () => {
@@ -148,7 +169,7 @@ class SearchResultsDetails extends Component {
               <Grid.Column width={8}>
                 <Segment basic>
                   <Image bordered rounded
-                    src={this.getGoogleStaticMapUrl()}
+                    src={this.getStaticMapUrl()}
                     as="a"
                     href={this.state.googleplaces.url}
                     target="_blank"
