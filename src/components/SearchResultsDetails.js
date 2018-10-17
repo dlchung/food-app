@@ -80,23 +80,25 @@ class SearchResultsDetails extends Component {
     const HERE_APP_ID = process.env.REACT_APP_HERE_APP_ID
     const HERE_APP_CODE = process.env.REACT_APP_HERE_APP_CODE
     const width = "500"
-    const height = "250"
+    const height = "300"
     const poilbl = "1"
     const poithm = "1"
+    const poitxs = "15"
+    const z = ""
+    const markerStartParams = "green;;;Start"
+    const markerEndParams = "red;;;End"
     let currentLocationLatLng
-    let restaurantLatLng
+    const restaurantLatLng = `${this.props.restaurant.lat},${this.props.restaurant.lng}`
     let resource
 
     if(this.props.latLng) {
       currentLocationLatLng = `${this.props.latLng.lat},${this.props.latLng.lng}`
-      restaurantLatLng = `${this.props.restaurant.lat},${this.props.restaurant.lng}`
       resource = "routing"
     } else {
-      restaurantLatLng = `${this.props.restaurant.lat},${this.props.restaurant.lng}`
       resource = "route"
     }
 
-    const mapUrl = `https://image.maps.api.here.com/mia/1.6/${resource}?app_id=${HERE_APP_ID}&app_code=${HERE_APP_CODE}&h=${height}&w=${width}&poix0=${currentLocationLatLng}&poix1=${restaurantLatLng}&waypoint0=${currentLocationLatLng}&waypoint1=${restaurantLatLng}&poilbl=${poilbl}&poithm=${poithm}`
+    const mapUrl = `https://image.maps.api.here.com/mia/1.6/${resource}?app_id=${HERE_APP_ID}&app_code=${HERE_APP_CODE}&h=${height}&w=${width}&poix0=${currentLocationLatLng};${markerStartParams}&poix1=${restaurantLatLng};${markerEndParams}&waypoint0=${currentLocationLatLng}&waypoint1=${restaurantLatLng}&z=${z}&poilbl=${poilbl}&poithm=${poithm}&poitxs=${poitxs}`
 
     return mapUrl
   }
