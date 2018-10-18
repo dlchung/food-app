@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import geolib from 'geolib'
 
 import SearchResultsDetails from './SearchResultsDetails'
 
 import { Card, Icon, Grid } from 'semantic-ui-react'
 
-export default class SearchResultsItem extends Component {
+class SearchResultsItem extends Component {
   state = {
     showDetails: false
   }
@@ -17,7 +19,24 @@ export default class SearchResultsItem extends Component {
     return <SearchResultsDetails restaurant={this.props.restaurant} handleClick={this.handleClick} />
   }
 
+  getDistance = () => {
+    if(this.props.currentLocation && this.props.restaurant) {
+      const a = {
+        latitude: this.props.currentLocation.lat,
+        longitude: this.props.currentLocation.lng
+      }
+      const b = {
+        latitude: this.props.restaurant.lat,
+        longitude: this.props.restaurant.lng
+      }
+
+      const distance = geolib.getDistance(a, b)
+      return geolib.convertUnit("mi", distance, 1)
+    }
+  }
+
   render() {
+    // console.log("RENDER", this.props.restaurant.lat, this.props.currentLocation.lat)
     const address = this.props.restaurant.street
     const address2 = `${this.props.restaurant.city}, ${this.props.restaurant.state}, ${this.props.restaurant.zipcode}`
 
@@ -34,7 +53,7 @@ export default class SearchResultsItem extends Component {
                         {this.props.restaurant.name}
                       </p>
                       <p className="result-description">
-                        {address}, {address2}
+                        ({this.getDistance()} mi) {address}, {address2}
                       </p>
                     </Grid.Column>
                     <Grid.Column>
@@ -51,3 +70,11 @@ export default class SearchResultsItem extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    currentLocation: state.currentLocation
+  }
+}
+
+export default connect(mapStateToProps)(SearchResultsItem)

@@ -5,6 +5,7 @@
   "dependencies": {
     "ajv": "^6.5.3",
     "axios": "^0.18.0",
+    "geolib": "^2.0.24",
     "google-maps": "^3.3.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
