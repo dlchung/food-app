@@ -12,9 +12,8 @@ class SearchResultsContainer extends Component {
     this.createResults()
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if(this.props.keyword !== prevProps.keyword || this.props.allowResults === true) {
-      console.log("different")
       this.props.setAllowResults(false)
       this.createResults()
     }
