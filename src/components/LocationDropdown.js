@@ -36,7 +36,9 @@ class LocationDropdown extends Component {
   }
 
   newLocation = () => {
-    this.setState({ openModal: !this.state.openModal }, () => { console.log(this.state) })
+    this.setState({ openModal: !this.state.openModal }, () => { 
+      // console.log(this.state) 
+    })
   }
 
   // render options for locations dropdown
@@ -61,7 +63,7 @@ class LocationDropdown extends Component {
 
   handleModalSubmit = (address) => {
     this.setState({ openModal: false, lastSelected: address })
-    console.log("handle submit")
+    // console.log("handle submit")
   }
 
   render() {
