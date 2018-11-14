@@ -14,7 +14,7 @@ export const getAllRestaurants = () => {
 }
 
 export const getNearbyRestaurants = (latLng, keyword, clear = false) => {
-  console.log("getNearbyRestaurants")
+  // console.log("getNearbyRestaurants")
   return (dispatch) => {
     dispatch(isFetching(true))
     fetchNearbyRestaurants(latLng, keyword)
@@ -44,7 +44,7 @@ export const setLocation = (latLng) => {
 }
 
 export const getLocations = () => {
-  console.log("getting locations")
+  // console.log("getting locations")
   return (dispatch) => {
     fetchLocations()
       .then(resp => {

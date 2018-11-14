@@ -44,7 +44,7 @@ const reducer = (state = initialState, action) => {
       }
 
     case "SET_LOCATION":
-      console.log("Location is now:", action.payload.latLng)
+      // console.log("Location is now:", action.payload.latLng)
       return {
         ...state,
         latLng: action.payload.latLng
